@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <link rel="icon" href="common/favicon.ico" type="image/x-icon">
+    <title>MiniLive</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            overflow: hidden;
+        }
+
+        video, canvas {
+            border: 2px solid #ccc;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        #canvas_video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        #canvas_gl {
+            position: absolute;
+            top: -9999px;
+            left: -9999px;
+            width: 128px;
+            height: 128px;
+        }
+
+        #screen {
+            position: absolute;
+            bottom: -1000;
+            right: -1000;
+            width: 1px;
+            height: 1px;
+        }
+
+        #screen2 {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            border: none;
+            z-index: 5;
+        }
+
+        #startMessage {
+            position: absolute;
+            top: 60%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            z-index: -2;
+        }
+
+        #dropdownContainer, #voiceDropdownContainer {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 10;
+        }
+
+        #voiceDropdownContainer {
+            top: 70px;
+        }
+
+        #characterDropdown, #voiceDropdown {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            padding: 10px 40px 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+            background-color: #fff;
+            border: 2px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        #characterDropdown:hover, #voiceDropdown:hover {
+            border-color: #888;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        #characterDropdown:focus, #voiceDropdown:focus {
+            border-color: #555;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        #dropdownContainer::after, #voiceDropdownContainer::after {
+            content: '▼';
+            position: absolute;
+            top: 50%;
+            right: 15px;
+            transform: translateY(-50%);
+            pointer-events: none;
+            color: #666;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <figure id="loadingSpinner">
+        <strong>MiniMates: loading...</strong>
+    </figure>
+
+    <canvas id="canvas_video"></canvas>
+    <canvas id="canvas_gl" width="128" height="128"></canvas>
+    <div id="screen"></div>
+    <iframe id="screen2" src="dialog.html" frameborder="0" style="display: none;"></iframe>
+    <div id="startMessage">加载中</div>
+
+    <!--我添加的逻辑-->
+    <script>
+        // 获取DOM元素
+        const textInput = document.getElementById('textInput');
+        const submitBtn = document.getElementById('submitBtn');
+
+        // 点击按钮时发送文本到后端进行朗读
+        submitBtn.addEventListener('click', () => {
+            const promptText = textInput.value.trim();
+            if (promptText === "") {
+                alert("请输入一些文本！");
+                return;
+            }
+
+            const requestData = {
+                input_mode: "text",
+                prompt: promptText,
+                voice_speed: 1.0,  // 默认语速
+                voice_id: "zh-CN-XiaoyanNeural"  // 选择一个语音ID，可以根据需要修改
+            };
+
+            // 发送POST请求到后端API
+            fetch('http://localhost:8888/generate_speech', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(requestData),
+            })
+            .then(response => {
+                const reader = response.body.getReader();
+                const decoder = new TextDecoder();
+                let audioChunks = [];
+
+                reader.read().then(function processText({ done, value }) {
+                    if (done) {
+                        const audioBlob = new Blob(audioChunks, { type: 'audio/mp3' });
+                        const audioUrl = URL.createObjectURL(audioBlob);
+                        const audio = new Audio(audioUrl);
+                        audio.play();  // 播放音频
+                        return;
+                    }
+
+                    audioChunks.push(value);
+                    reader.read().then(processText);
+                });
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    </script>
+
+    <script src="js/pako.min.js"></script>
+    <script src="js/mp4box.all.min.js"></script>
+    <script src="js/gl-matrix-min.js"></script>
+    <script src="js/DHLiveMini.js"></script>
+    <script src="js/MiniMateLoader.js"></script>
+    <script src="js/MiniLive2.js"></script>
+</body>
+</html>
