@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>宠物管理</title>
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/petManage.css">
+    <style>
+        /* 左侧标签栏选中 */
+        .nav-left .nav-left-item.petItemManage {
+            background: #999;
+            color: #fcf9f9;
+        }
+    </style>
+</head>
+
+<th:block th:include="~{IncludePage}"></th:block>
+<div class="pet-screen">
+    <div class="select-item">
+        <label class="select-label">种类</label>
+        <select name="" class="select-comboBox category" id="category-comboBox">
+            <option value="null" selected>————</option>
+            <option th:each="category:${categories}" th:value="${category.categoryId}" th:text="${category.name}"></option>
+        </select>
+    </div>
+
+    <div class="select-item">
+        <label class="select-label">品种</label>
+        <select name="" class="select-comboBox product" id="product-comboBox">
+            <option value="null" selected>————</option>
+            <option th:each="product:${products}" th:value="${product.productId} + '_' + ${product.categoryId}" th:text="${product.name}"></option>
+        </select>
+    </div>
+
+    <div class="screen-btns">
+        <button class="btn screen-btn blue" id="btn-select">筛选</button>
+        <button class="btn screen-btn gray" id="btn-reset">重置</button>
+        <button class="btn screen-btn gray" id="btn-new">新增</button>
+    </div>
+
+    <div class="pet-search">
+        <input type="text" class="search-input" id="search-input" placeholder="请输入宠物名">
+        <button class="btn search-btn" id="search-btn">搜索</button>
+    </div>
+</div>
+<div class="search-auto-complete" id="auto-complete">
+    <ul class="auto-complete-list" id="auto-complete-list">
+
+    </ul>
+</div>
+
+<form action="addItemManage" method="POST" class="pet-add" id="add-form">
+    <div class="pet-add-item">
+        <label class="add-item-label">宠物编号</label>
+        <input type="text" class="add-item-input" id="add-itemid" placeholder="请输入宠物编号" name="itemId">
+    </div>
+    <div class="pet-add-item">
+        <label class="add-item-label">标价</label>
+        <input type="text" class="add-item-input" id="add-listprice" placeholder="请输入标价" name="listPrice">
+    </div>
+    <div class="pet-add-item">
+        <label class="add-item-label">成本</label>
+        <input type="text" class="add-item-input" id="add-unitcost" placeholder="请输入成本" name="unitCost">
+    </div>
+    <div class="pet-add-item">
+        <label class="add-item-label">宠物来源</label>
+        <input type="text" class="add-item-input" id="add-supplier" placeholder="请输入宠物来源" name="supplierId">
+    </div>
+    <div class="pet-add-item">
+        <label class="add-item-label">品种编号</label>
+        <input type="text" class="add-item-input" id="add-productid" placeholder="请输入品种编号" name="productId">
+    </div>
+
+    <div class="pet-add-item">
+        <label class="add-item-label">状态</label>
+        <input type="text" class="add-item-input" id="add-status" placeholder="请输入状态" name="status">
+    </div>
+    <div class="pet-add-item">
+        <label class="add-item-label">属性</label>
+        <input type="text" class="add-item-input" id="add-attr" placeholder="请输入属性" name="attribute1">
+    </div>
+    <div class="pet-add-buttons">
+        <button class="btn add-pet-btn gray" id="confirm-addItem-btn" type="submit">确认添加</button>
+        <button class="btn add-pet-btn gray" id="close-form-btn" type="button">关闭</button>
+    </div>
+</form>
+
+<form action="editItemManage" method="POST" class="pet-edit" id="edit-form">
+    <div class="pet-edit-item">
+        <label class="edit-item-label">宠物编号</label>
+        <input type="text" class="edit-item-input" id="edit-itemid" placeholder="请输入宠物编号" name="itemId">
+    </div>
+    <div class="pet-edit-item">
+        <label class="edit-item-label">标价</label>
+        <input type="text" class="edit-item-input" id="edit-listprice" placeholder="请输入标价" name="listPrice">
+    </div>
+    <div class="pet-edit-item">
+        <label class="edit-item-label">成本</label>
+        <input type="text" class="edit-item-input" id="edit-unitcost" placeholder="请输入成本" name="unitCost">
+    </div>
+    <div class="pet-edit-item">
+        <label class="edit-item-label">宠物来源</label>
+        <input type="text" class="edit-item-input" id="edit-supplier" placeholder="请输入宠物来源" name="supplierId">
+    </div>
+    <div class="pet-edit-item">
+        <label class="edit-item-label">品种编号</label>
+        <input type="text" class="edit-item-input" id="edit-productid" placeholder="请输入品种编号" name="productId">
+    </div>
+    <div class="pet-edit-item">
+        <label class="edit-item-label">状态</label>
+        <input type="text" class="edit-item-input" id="edit-status" placeholder="请输入状态" name="status">
+    </div>
+    <div class="pet-edit-item">
+        <label class="edit-item-label">属性</label>
+        <input type="text" class="edit-item-input" id="edit-attr" placeholder="请输入属性"  name="attribute1">
+    </div>
+
+    <div class="pet-edit-buttons">
+        <button class="btn edit-pet-btn gray" id="confirm-edit-btn" type="submit">确认编辑</button>
+        <button class="btn edit-pet-btn gray" id="close-edit-form-btn" type="button">关闭</button>
+    </div>
+</form>
+
+<div class="pet-table">
+    <table class="table" id="pet-table">
+        <tr class="table-title">
+            <th class="col1">宠物编号</th>
+            <th class="col2">品种编号</th>
+            <th class="col3">标价</th>
+            <th class="col4">成本</th>
+            <th class="col5">宠物来源</th>
+            <th class="col6">状态</th>
+            <th class="col7">属性</th>
+            <th class="col8">操作</th>
+        </tr>
+
+        <tr th:each="item:${items}"  id="pet-row">
+            <td th:text="${item.itemId}" id="tableItemId"></td>
+            <td th:text="${item.productId}"></td>
+            <td th:text="${item.listPrice}"></td>
+            <td th:text="${item.unitCost}"></td>
+            <td th:text="${item.supplierId}"></td>
+            <td th:text="${item.status}"></td>
+            <td th:text="${item.attribute1}"></td>
+<!--            <td class="btns-action">-->
+<!--                <button class="action-btn" id="edit-item-btn">编辑</button>-->
+<!--                <button class="action-btn" id="delete-item-btn">删除</button>-->
+<!--            </td>-->
+            <td th:width="120px" class="btns-action">
+                <div style="display: flex ;gap: 8px" >
+                    <button class="action-btn" id="edit-item-btn">编辑</button>
+                    <!--                <button class="action-btn" id="delete-category-btn">删除</button>-->
+                    <!-- 删除按钮表单 -->
+                    <form action="deleteItemManage" method="post"
+                          onsubmit="return confirm('确定要删除该分类吗？');">
+                        <input type="hidden" name="itemId" th:value="${item.itemId}" />
+                        <button type="submit" class="action-btn">删除</button>
+                    </form>
+                </div>
+            </td>
+        </tr>
+
+    </table>
+
+    <div class="nav-bottom">
+        <p class="total">共1条 1页</p>
+        <div class="link">上一页</div>
+        <p class="current-page">第1页</p>
+        <div class="link">下一页</div>
+    </div>
+</div>
+</div>
+</body>
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="/js/petManage.js"></script>
+<script src="/js/petManage-item.js"></script>
+<script src="/js/includePage.js"></script>
+</html>

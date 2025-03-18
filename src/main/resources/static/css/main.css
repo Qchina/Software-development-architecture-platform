@@ -1,0 +1,214 @@
+/*CSS reset*/
+* {
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font: 12px/1.5 tahoma, Helvetica, arial, Microsoft YaHei, sans-serif;
+    vertical-align: baseline;
+    color: #000000;
+    text-decoration: none;
+}
+
+body {
+    background: #f6f6f6;
+    font: 12px/1.5 tahoma, Helvetica, arial, Microsoft YaHei, sans-serif;
+}
+
+p {
+    /* p标签不换行 */
+    display: inline;
+}
+
+li {
+    list-style: none;
+}
+
+img {
+    display: block;
+    border: none;
+}
+
+label {
+    cursor: pointer;
+}
+
+/* 全局通用样式*/
+/* 定宽布局*/
+.w {
+    width: 1080px;
+    height: fit-content;
+    margin: 0 auto 0 300px;
+    position: relative;
+    overflow: hidden;
+    background: #f6f6f6;
+
+}
+
+.link {
+    color: #999;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.link:hover {
+    color: #415496;
+}
+
+.btn {
+    display: inline-block;
+    padding: 0 20px;
+    height: 40px;
+    line-height: 40px;
+    vertical-align: middle;
+    border: none;
+    background: rgb(190, 158, 111);;
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+    outline: none;
+}
+
+.btn.gray {
+    background: #c9c9c9;
+    color: #7b7575;
+}
+
+.btn:active {
+    background: #c9c9c9;
+    color: #7b7575;
+}
+
+/* 侧边标签栏导航 */
+.nav-left {
+    padding-left: 2px;
+    width: 280px;
+    height: 800px;
+    position: absolute;
+    float: left;
+    background: #fff;
+}
+
+.nav-left .title {
+    padding-top: 40px;
+    padding-bottom: 40px;
+    text-align: center;
+    background: rgb(190, 158, 111);
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.nav-left .nav-left-item {
+    display: block;
+    margin: 0 auto;
+    padding-top: 5px;
+    width: 210px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 15px;
+    padding-left: 70px;
+    user-select: none;
+}
+
+.nav-left .nav-left-item:hover {
+    background: #999;
+    color: #fcf9f9;
+}
+
+.nav-left .nav-left-item:focus {
+    background: #999;
+    color: #fcf9f9;
+}
+
+.nav-left .nav-left-item .item-icon {
+    float: left;
+    position: relative;
+    width: 25px;
+    height: 40px;
+}
+
+.nav-left .nav-left-item .item-icon .fa {
+    margin-top: 13px;
+}
+
+/*旋转动画*/
+#petCategoryManageIcon {
+    transition: transform 1s;
+}
+.petCategoryManage:hover #petCategoryManageIcon{
+    transform: rotate(30deg);
+}
+
+#selfInfoIcon {
+    transition: transform 1s;
+}
+.selfInfo:hover #selfInfoIcon{
+    transform: rotate(60deg);
+}
+
+
+/*弹跳动画*/
+@keyframes bounce {
+    0% {
+        transform: translateY(0);
+    }
+    20% {
+        transform: translateY(-8px);
+    }
+    40% {
+        transform: translateY(0);
+    }
+    55% {
+        transform: translateY(-5px);
+    }
+    70% {
+        transform: translateY(0);
+    }
+    85% {
+        transform: translateY(-2px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+/* 主页部分 */
+/* 顶部导航 */
+.w .nav-top {
+    margin-top: 20px;
+    margin-left: 40px;
+    width: 1000px;
+    height: 40px;
+    line-height: 40px;
+    background: rgb(226, 226, 226);
+    user-select: none;
+}
+
+.nav-top .nav-top-list {
+    float: right;
+}
+
+.nav-top .nav-top-list .nav-top-list-item {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.nav-top .nav-top-list .nav-top-list-item.homepage:hover {
+    background: #c9c9c9;
+    cursor: pointer;
+}
+
+.nav-top .nav-top-list .nav-top-list-item li {
+    display: inline-block;
+}
+
+
+
+

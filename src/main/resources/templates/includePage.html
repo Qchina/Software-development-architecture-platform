@@ -1,0 +1,111 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+<body>
+<!--侧边栏导航 -->
+<div class="nav-left">
+    <div class="title">
+        <p class="title-name">宠物商店后台管理系统</p>
+    </div>
+
+    <a href="dashboard" id="dashboard">
+        <div class="nav-left-item dashboard" tabindex="1">
+            <div class="item-icon">
+                <i id="dashboardIcon" class="fas fa-chart-bar"></i>
+            </div>
+            <label>数据概览</label>
+        </div>
+    </a>
+
+    <div id="petManage">
+        <div class="nav-left-item petManage" tabindex="1">
+            <div class="item-icon" style="position: relative;left: 1px">
+                <i class="fas fa-angle-down"></i>
+            </div>
+            <label>宠物管理</label>
+        </div>
+    </div>
+
+    <a href="categoryManage" id="petCategoryManage">
+        <div class="nav-left-item petCategoryManage" tabindex="1" style="padding-left: 90px;width: 190px">
+            <div class="item-icon">
+                <i id="petCategoryManageIcon" class="fas fa-paw"></i>
+            </div>
+            <label>宠物品种管理</label>
+        </div>
+    </a>
+
+    <a href="productManage" id="petProductManage">
+        <div class="nav-left-item petProductManage" tabindex="1" style="padding-left: 90px;width: 190px">
+            <div class="item-icon">
+                <i id="petProductManageIcon" class="fas fa-dog"></i>
+            </div>
+            <label>宠物品类管理</label>
+        </div>
+    </a>
+
+    <a href="itemManage" id="petItemManage">
+        <div class="nav-left-item petItemManage" tabindex="1" style="padding-left: 90px;width: 190px">
+            <div class="item-icon">
+                <i id="petItemManageIcon" class="fas fa-fish"></i>
+            </div>
+            <label>单个宠物管理</label>
+        </div>
+    </a>
+
+    <a href="" id="userManage">
+        <div class="nav-left-item userManage" tabindex="1">
+            <div class="item-icon">
+                <i id="userManageIcon" class="fa fa-thin fa-user"></i>
+            </div>
+            <label>用户管理</label>
+        </div>
+    </a>
+
+    <a href="" id="orderManage">
+        <div class="nav-left-item orderManage" tabindex="1">
+            <div class="item-icon">
+                <i id="orderManageIcon" class="fa fa-thin fa-book"></i>
+            </div>
+            <label>订单管理</label>
+        </div>
+    </a>
+
+    <a href="" id="selfInfo">
+        <div class="nav-left-item selfInfo" tabindex="1">
+            <div class="item-icon">
+                <i id="selfInfoIcon" class="fas fa-cog"></i>
+            </div>
+            <label>个人信息</label>
+        </div>
+    </a>
+
+</div>
+
+
+<div class="w">
+
+    <!-- 顶部导航 -->
+    <div class="nav-top">
+        <ul class="nav-top-list">
+            <div class="nav-top-list-item">
+                <i class="fa fa-light fa-envelope"></i>
+                <a href="#" class="link">消息</a>
+            </div>
+            <div class="nav-top-list-item homepage" id="nav-top-selfInfo-link">
+                <a href="selfInfo">
+                    <li>欢迎您,</li>
+<!--                    <li id="accountName" th:text="${session.loginUser.getUsername()}"></li>-->
+                </a>
+            </div>
+            <div class="nav-top-list-item" th:if="${session.loginUser!=null}">
+                <a href="logout">
+                    <li class="link">退出</li>
+                </a>
+            </div>
+            <div class="nav-top-list-item">
+                <li class="link">关于宠物商店后台管理系统</li>
+            </div>
+
+        </ul>
+    </div>

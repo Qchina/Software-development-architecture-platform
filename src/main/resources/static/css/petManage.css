@@ -1,0 +1,304 @@
+/* 筛选及按钮操作盒子 */
+.w .pet-screen{
+    position: relative;
+    margin: 20px auto;
+    width: 950px;
+    height: 150px;
+    background: #fff;
+    box-shadow: -2px 2px 3px #ccc;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    user-select: none;
+}
+.w .pet-screen .select-item{
+    display: inline-block;
+    padding-left: 20px;
+}
+.w .pet-screen .select-item .select-label{
+    height: 30px;
+    line-height: 30px;
+    font-size: 13px;
+    padding-right: 5px;
+}
+.w .pet-screen .select-item .select-comboBox{
+    width: 120px;
+    height: 30px;
+    border-color: #b0b0b0;
+    color: #8a8a8a;
+    border-radius: 5px;
+    padding-left: 6px;
+}
+
+/*三个按钮*/
+.w .pet-screen .screen-btns{
+    float: left;
+    position: relative;
+    padding-left: 45px;
+}
+.w .pet-screen .screen-btns .btn.screen-btn{
+    border-radius: 7px;
+    margin-right: 10px;
+    padding: 0 10px;
+    height: 35px;
+    line-height: 35px;
+    font-size: 15px;
+}
+.w .pet-screen .screen-btns .btn.screen-btn.gray{
+    background: #c9c9c9;
+    color: #7b7575;
+}
+.w .pet-screen .screen-btns .btn.screen-btn.gray:hover{
+    background: rgb(190, 158, 111);
+    color: #fff;
+}
+
+/* 搜索 */
+.w .pet-screen .pet-search{
+    display: inline-block;
+}
+.w .pet-screen .pet-search .search-input{
+    width: 200px;
+    height: 30px;
+    margin-left: 30px;
+    line-height: 35px;
+    font-size: 15px;
+    border: 2px solid rgb(190, 158, 111);
+    outline: none;
+    padding-left: 10px;
+}
+.w .pet-screen .pet-search .btn.search-btn{
+    position: absolute;
+    width: 80px;
+    height: 34px;
+    line-height: 35px;
+    padding: 0 10px;
+}
+.w .pet-screen .pet-search .btn.search-btn:active{
+    background: #c9c9c9;
+    color: #7b7575;
+}
+/*自动补全 默认不显示*/
+.w .search-auto-complete{
+    position: absolute;
+    width: 398px;
+    line-height: 30px;
+    font-size: 18px;
+    top: 200px;
+    left: 465px;
+    background: #e7e7e7;
+    z-index: 999;
+    display: none;
+}
+.w .search-auto-complete .auto-complete-list li{
+    padding-left: 5px;
+    cursor: pointer;
+}
+
+/* 添加宠物 */
+.w .pet-add{
+    position: relative;
+    margin: 20px auto;
+    width: 950px;
+    height: 150px;
+    background: #fff;
+    box-shadow: -2px 2px 3px #ccc;
+    border-radius: 10px;
+    user-select: none;
+    display: none;
+}
+.w .pet-add .pet-add-item{
+    float: left;
+    padding-left: 20px;
+    padding-top: 30px;
+    width: 215px;
+}
+.w .pet-add .pet-add-item .add-item-label{
+    position: relative;
+    padding-right: 5px;
+}
+.w .pet-add .pet-add-item .add-item-input{
+    width: 140px;
+    height: 30px;
+    border: 1px solid #b0b0b0;
+    color: #8a8a8a;
+    border-radius: 5px;
+    -webkit-user-select: auto;
+    padding-left: 10px;
+}
+.w .pet-add .pet-add-buttons{
+    position: relative;
+    float: right;
+    font-size: 15px;
+    margin-top: 24px;
+    margin-right: 18px;
+}
+.w .pet-add .btn.add-pet-btn{
+    border-radius: 7px;
+    padding: 0 10px;
+    margin-right: 30px;
+    font-size: 15px;
+    background: #c9c9c9;
+    color: #7b7575;
+}
+
+.w .pet-add .btn.add-pet-btn:hover{
+    background: rgb(190, 158, 111);
+    color: #fff;
+}
+
+/* 编辑宠物 */
+.w .pet-edit{
+    position: relative;
+    margin: 20px auto;
+    width: 950px;
+    height: 150px;
+    background: #fff;
+    box-shadow: -2px 2px 3px #ccc;
+    border-radius: 10px;
+    display: none;
+    user-select: none;
+}
+.w .pet-edit .pet-edit-item{
+    float: left;
+    padding-left: 20px;
+    padding-top: 30px;
+    width: 215px;
+}
+.w .pet-edit .pet-edit-item .edit-item-label{
+    position: relative;
+    padding-right: 5px;
+}
+.w .pet-edit .pet-edit-item .edit-item-input{
+    width: 140px;
+    height: 30px;
+    border: 1px solid #b0b0b0;
+    color: #8a8a8a;
+    border-radius: 5px;
+    -webkit-user-select: auto;
+    padding-left: 10px;
+}
+.w .pet-edit .pet-edit-buttons{
+    position: relative;
+    float: right;
+    font-size: 15px;
+    margin-top: 24px;
+    margin-right: 18px;
+}
+.w .pet-edit .edit-pet-btn{
+    border-radius: 7px;
+    background: rgb(190, 158, 111);
+    color: #fff;
+}
+.w .pet-edit .edit-pet-btn.gray{
+    border-radius: 7px;
+    padding: 0 10px;
+    margin-right: 30px;
+    font-size: 15px;
+    background: #c9c9c9;
+    color: #7b7575;
+}
+.w .pet-edit .edit-pet-btn.gray:hover{
+    background: rgb(190, 158, 111);
+    color: #fff;
+}
+
+/* 宠物表格 */
+.w .pet-table{
+    position: relative;
+    width: 950px;
+    height: 500px;
+    background: #fff;
+    box-shadow: -2px 2px 3px #ccc;
+    border-radius: 10px;
+    margin: 0 auto 50px;
+}
+.w .pet-table .table{
+    position: absolute;
+    width: 920px;
+    margin-left: 15px;
+    margin-top: 20px;
+    text-align: center;
+    border:1px solid #afafaf;
+    border-collapse: collapse;
+}
+th{
+    border:1.5px solid #c3c3c3;
+    background: rgb(226, 226, 226);
+    height: 30px;
+}
+td{
+    border:1.5px solid #c3c3c3;
+    height: 40px;
+}
+
+.w .pet-table #tableProductImg{
+    padding-left: 20px;
+}
+.w .pet-table img{
+    display: inline-block;
+    width: 38px;
+    height: 38px;
+    transition: all 1s ease-in-out;
+}
+
+.w .pet-table img:hover{
+    width: 125px;
+    height: 125px;
+    transition: all 1s ease-in-out;
+    z-index: 2;
+}
+
+.w .pet-table #tableProductImg{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+}
+
+.w .pet-table .action-btn{
+    width: 50px;
+    height: 30px;
+    background: rgb(190, 158, 111);
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+}
+.w .pet-table .action-btn.gray{
+    background: #c9c9c9;
+    color: #7b7575;
+}
+.w .pet-table .action-btn:hover{
+    cursor: pointer;
+}
+
+.w .pet-table .nav-bottom{
+    top: 450px;
+    position:relative;
+    padding-right: 30px;
+    display: inline;
+    float: right;
+    font-size: 13px;
+    user-select: none;
+}
+
+.w .pet-table .nav-bottom .link{
+    display: inline-block;
+}
+
+.w .pet-table .nav-bottom .current-page{
+    color: rgb(190, 158, 111);
+}
+/*!* 让按钮并列 *!*/
+/*.w .pet-table .btns-action .btn-group {*/
+/*    display: flex;*/
+/*    gap: 8px; !* 控制按钮间距 *!*/
+/*}*/
+
+/*!* 让操作列宽度适中 *!*/
+/*.w .pet-table .col4, .btns-action {*/
+/*    width: 120px; !* 调整列宽，仅比按钮稍宽 *!*/
+/*    text-align: center; !* 让按钮居中 *!*/
+/*}*/
+
