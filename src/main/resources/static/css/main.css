@@ -40,7 +40,7 @@ label {
 /* 全局通用样式*/
 /* 定宽布局*/
 .w {
-    width: 1080px;
+    width: 1280px;
     height: fit-content;
     margin: 0 auto 0 300px;
     position: relative;
@@ -183,8 +183,8 @@ label {
 /* 顶部导航 */
 .w .nav-top {
     margin-top: 20px;
-    margin-left: 40px;
-    width: 1000px;
+    margin-left: 20px;
+    width: 1240px;
     height: 40px;
     line-height: 40px;
     background: rgb(226, 226, 226);

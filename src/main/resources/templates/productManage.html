@@ -167,6 +167,17 @@
 </body>
 <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $('#search-btn').on('click', function () {
+      var name = $('#search-input').val();
+      if (name) {
+        window.location.href = '/petManage/searchProductByName?name=' + encodeURIComponent(name);
+      }
+    });
+  });
+</script>
+
 <script src="/js/petManage.js"></script>
 <script src="/js/petManage-product.js"></script>
 <script src="/js/includePage.js"></script>

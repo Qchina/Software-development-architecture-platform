@@ -31,4 +31,8 @@
     <delete id="deleteProductManage" parameterType="java.lang.String">
         DELETE FROM product WHERE productid = #{productId}
     </delete>
+
+    <select id="searchProductManageByName" resultMap="productMap">
+        SELECT * FROM product WHERE name LIKE CONCAT('%', #{name}, '%')
+    </select>
 </mapper>

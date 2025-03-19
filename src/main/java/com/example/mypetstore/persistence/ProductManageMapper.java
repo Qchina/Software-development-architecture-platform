@@ -11,4 +11,5 @@ public interface ProductManageMapper {
     void addProductManage(ProductManage product);
     void updateProductManage(ProductManage product);
     void deleteProductManage(String productId);
+    List<ProductManage> searchProductManageByName(String name);
 }

@@ -28,6 +28,8 @@ public class PetManageController {
 
     @Autowired
     public ItemManageMapper itemMapper;
+    @Autowired
+    private ItemManageMapper itemManageMapper;
 
     @GetMapping("/categoryManage")//http://localhost:8080/petManage/categoryManage
     public String categoryManage(Model model) {
@@ -218,5 +220,29 @@ public class PetManageController {
         return "redirect:/petManage/itemManage";
     }
 
+    @PostMapping("/updateItemStatus")
+    public String updateItemStatus(@RequestParam("itemId") String itemId,
+                                   @RequestParam("status") String status) {
+        // 调用方法更新商品状态
+        itemMapper.updateItemStatus(itemId, status);
 
+        // 重定向到商品管理页面
+        return "redirect:/petManage/itemManage";
+    }
+
+    @GetMapping("/getItemManageById")//http://localhost:8080/petManage/itemManage
+    public String getItemManageById(@RequestParam("itemId") String itemId,Model model)
+    {
+        List<ItemManage> items = itemMapper.getItemManageById(itemId);
+        model.addAttribute("items", items);
+        return "itemManage";
+    }
+
+    // 新增通过 name 搜索产品的方法
+    @GetMapping("/searchProductByName")
+    public String searchProductByName(@RequestParam("name") String name, Model model) {
+        List<ProductManage> products = productMapper.searchProductManageByName(name);
+        model.addAttribute("products", products);
+        return "productManage";
+    }
 }

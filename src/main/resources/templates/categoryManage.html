@@ -35,6 +35,7 @@
         <input type="text" class="search-input" id="search-input" placeholder="请输入宠物名">
         <button class="btn search-btn" id="search-btn">搜索</button>
     </div>
+
 </div>
 <div class="search-auto-complete" id="auto-complete">
     <ul class="auto-complete-list" id="auto-complete-list">
@@ -120,6 +121,16 @@
 </body>
 <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#search-btn').on('click', function () {
+            var name = $('#search-input').val();
+            if (name) {
+                window.location.href = '/petManage/searchProductByName?name=' + encodeURIComponent(name);
+            }
+        });
+    });
+</script>
 <script src="/js/petManage.js"></script>
 <script src="/js/petManage-category.js"></script>
 <script src="/js/includePage.js"></script>

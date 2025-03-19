@@ -2,7 +2,7 @@
 .w .pet-screen{
     position: relative;
     margin: 20px auto;
-    width: 950px;
+    width: 1100px;
     height: 150px;
     background: #fff;
     box-shadow: -2px 2px 3px #ccc;
@@ -207,8 +207,8 @@
 /* 宠物表格 */
 .w .pet-table{
     position: relative;
-    width: 950px;
-    height: 500px;
+    width: 1100px;
+    height: 550px;
     background: #fff;
     box-shadow: -2px 2px 3px #ccc;
     border-radius: 10px;
@@ -216,7 +216,7 @@
 }
 .w .pet-table .table{
     position: absolute;
-    width: 920px;
+    width: 1050px;
     margin-left: 15px;
     margin-top: 20px;
     text-align: center;
@@ -272,6 +272,18 @@ td{
 .w .pet-table .action-btn:hover{
     cursor: pointer;
 }
+
+.w .pet-table .action-btn.green {
+    background-color: #80e27e; /* 更浅的绿色 */
+    color: white;
+}
+
+.w .pet-table .action-btn.red {
+    background-color: #ef9a9a; /* 更浅的红色 */
+    color: white;
+}
+
+
 
 .w .pet-table .nav-bottom{
     top: 450px;

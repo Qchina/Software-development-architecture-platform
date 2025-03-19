@@ -41,10 +41,16 @@
         <button class="btn screen-btn gray" id="btn-new">新增</button>
     </div>
 
+<!--    <div class="pet-search">-->
+<!--        <input type="text" class="search-input" id="search-input" placeholder="请输入宠物ID">-->
+<!--        <button class="btn search-btn" id="search-btn">搜索</button>-->
+<!--    </div>-->
+    <!-- 新增通过itemid搜索的输入框和按钮 -->
     <div class="pet-search">
-        <input type="text" class="search-input" id="search-input" placeholder="请输入宠物名">
-        <button class="btn search-btn" id="search-btn">搜索</button>
+        <input type="text" class="search-input" id="search-itemid-input" placeholder="请输入宠物编号（itemid）">
+        <button class="btn search-btn" id="search-itemid-btn">搜索</button>
     </div>
+
 </div>
 <div class="search-auto-complete" id="auto-complete">
     <ul class="auto-complete-list" id="auto-complete-list">
@@ -152,13 +158,28 @@
             <td th:width="120px" class="btns-action">
                 <div style="display: flex ;gap: 8px" >
                     <button class="action-btn" id="edit-item-btn">编辑</button>
-                    <!--                <button class="action-btn" id="delete-category-btn">删除</button>-->
+
                     <!-- 删除按钮表单 -->
                     <form action="deleteItemManage" method="post"
                           onsubmit="return confirm('确定要删除该分类吗？');">
                         <input type="hidden" name="itemId" th:value="${item.itemId}" />
                         <button type="submit" class="action-btn">删除</button>
                     </form>
+
+                    <!-- 上架按钮：仅在商品状态为 "d"（下架）时显示 -->
+                    <form action="updateItemStatus" method="post" style="display: inline;">
+                        <input type="hidden" name="itemId" th:value="${item.itemId}" />
+                        <input type="hidden" name="status" value="P" />
+                        <button type="submit" class="action-btn red" th:if="${item.status == 'd'}">上架</button>
+                    </form>
+
+                    <!-- 下架按钮：仅在商品状态为 "P"（上架）时显示 -->
+                    <form action="updateItemStatus" method="post" style="display: inline;">
+                        <input type="hidden" name="itemId" th:value="${item.itemId}" />
+                        <input type="hidden" name="status" value="d" />
+                        <button type="submit" class="action-btn" th:if="${item.status == 'P'}">下架</button>
+                    </form>
+
                 </div>
             </td>
         </tr>
@@ -176,6 +197,17 @@
 </body>
 <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#search-itemid-btn').on('click', function () {
+            var itemId = $('#search-itemid-input').val();
+            if (itemId) {
+                window.location.href = '/petManage/getItemManageById?itemId=' + encodeURIComponent(itemId);
+            }
+        });
+    });
+</script>
+
 <script src="/js/petManage.js"></script>
 <script src="/js/petManage-item.js"></script>
 <script src="/js/includePage.js"></script>
