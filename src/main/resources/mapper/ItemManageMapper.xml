@@ -53,4 +53,25 @@
         SET status = #{status}
         WHERE itemid = #{itemId}
     </update>
+
+    <!-- 根据 productId 和 categoryId 查询 Item -->
+    <select id="getItemsByProductAndCategory" resultType="com.example.mypetstore.domain.ItemManage">
+        SELECT i.itemid, i.productid, i.listprice, i.unitcost, i.supplier AS supplierId, i.status,
+               i.attr1 AS attribute1, i.attr2, i.attr3, i.attr4
+        FROM item i
+                 JOIN product p ON i.productid = p.productid
+        WHERE p.productid = #{productId} AND p.category = #{categoryId}
+    </select>
+
+    <!-- 根据 categoryId 查询 Item -->
+    <select id="getItemsByCategory" resultType="com.example.mypetstore.domain.ItemManage"
+    >
+        SELECT i.itemid, i.productid, i.listprice, i.unitcost, i.supplier AS supplierId, i.status,
+               i.attr1 AS attribute1, i.attr2, i.attr3, i.attr4
+        FROM item i
+                 JOIN product p ON i.productid = p.productid
+        WHERE p.category = #{categoryId}
+    </select
+    >
+
 </mapper>

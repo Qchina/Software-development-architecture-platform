@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Controller
 //充当get和post
@@ -91,13 +94,53 @@ public class PetManageController {
         return "redirect:/petManage/categoryManage"; // 重定向回分类管理页面
     }
 
+//    @GetMapping("/productManage")
+//    public String productManage(@RequestParam(value = "categoryId", required = false) String categoryId, Model model) {
+//        List<ProductManage> products;
+//
+//        if (categoryId == null || categoryId.equals("null")) {
+//            products = productMapper.getProductManageList();
+//        } else {
+//            products = productMapper.getProductManageListByCategory(categoryId);
+//        }
+//
+//        // 提取唯一 categoryId
+//        Set<String> uniqueCategories = products.stream()
+//                .map(ProductManage::getCategoryId)
+//                .filter(Objects::nonNull)
+//                .collect(Collectors.toSet());
+//
+//        model.addAttribute("products", products);
+//        model.addAttribute("categories", uniqueCategories);
+//        model.addAttribute("selectedCategoryId", categoryId); // 传递当前选择的 categoryId
+//
+//        return "productManage";
+//    }
 
-    @GetMapping("/productManage")//http://localhost:8080/petManage/productManage
-    public String productManage(Model model) {
-        List<ProductManage> products = productMapper.getProductManageList();
+    @GetMapping("/productManage")
+    public String productManage(@RequestParam(value = "categoryId", required = false) String categoryId, Model model) {
+        // 获取商品列表，根据传入的 categoryId 过滤
+        List<ProductManage> products;
+        if (categoryId == null || categoryId.equals("null")) {
+            // 没有选择分类时获取所有商品
+            products = productMapper.getProductManageList();
+        } else {
+            // 如果有选择分类，根据 categoryId 获取商品
+            products = productMapper.getProductManageListByCategory(categoryId);
+        }
+
+        // 获取所有的商品分类
+        List<CategoryManage> categories = categoryMapper.getCategoryManageList();
+
+        // 将数据添加到模型中
         model.addAttribute("products", products);
+        model.addAttribute("categories", categories);
+        model.addAttribute("selectedCategoryId", categoryId); // 传递当前选择的 categoryId，以便前端标记选中项
+
         return "productManage";
     }
+
+
 
     @PostMapping("/addProductManage")
     public String addProductManage(@RequestParam("productId") String productId,
@@ -146,12 +189,44 @@ public class PetManageController {
         return "redirect:/petManage/productManage";
     }
 
-    @GetMapping("/itemManage")//http://localhost:8080/petManage/itemManage
-    public String itemManage(Model model)
-    {
-        List<ItemManage> items = itemMapper.getItemManageList();
+    @GetMapping("/itemManage")
+    public String itemManage(
+            @RequestParam(value = "categoryId", required = false) String categoryId,
+            @RequestParam(value = "productIdCategoryId", required = false) String productIdCategoryId,
+            Model model) {
+
+        List<ItemManage> items;
+
+        // 如果没有选择筛选条件，返回所有项
+        if ((categoryId == null || categoryId.equals("null")) &&
+                (productIdCategoryId == null || productIdCategoryId.equals("null"))) {
+            items = itemMapper.getItemManageList();
+        } else {
+            // 根据 categoryId 或 productIdCategoryId 进行筛选
+            if (productIdCategoryId != null && !productIdCategoryId.equals("null")) {
+                // 解析出 productId 和 categoryId
+                String[] parts = productIdCategoryId.split("_");
+                String productId = parts[0];
+                String categoryIdFromProduct = parts[1];
+
+                // 使用 productId 和 categoryId 进行筛选
+                items = itemMapper.getItemsByProductAndCategory(productId, categoryIdFromProduct);
+            } else if (categoryId != null && !categoryId.equals("null")) {
+                // 只根据 categoryId 进行筛选
+                items = itemMapper.getItemsByCategory(categoryId);
+            } else {
+                items = itemMapper.getItemManageList();
+            }
+        }
+
+        // 获取所有产品信息和类别信息，用于下拉框选择
+        List<ProductManage> products = productMapper.getProductManageList();
+        List<CategoryManage> categories = categoryMapper.getCategoryManageList();
         model.addAttribute("items", items);
-        return "itemManage";
+        model.addAttribute("products", products);
+        model.addAttribute("categories", categories);
+
+        return "itemManage";  // 返回 itemManage 页面
     }
 
     @PostMapping("/addItemManage")

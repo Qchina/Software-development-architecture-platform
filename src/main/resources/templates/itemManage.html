@@ -19,9 +19,25 @@
 
 <th:block th:include="~{IncludePage}"></th:block>
 <div class="pet-screen">
+<!--    <div class="select-item">-->
+<!--        <label class="select-label">种类</label>-->
+<!--        <select name="" class="select-comboBox category" id="category-comboBox">-->
+<!--            <option value="null" selected>————</option>-->
+<!--            <option th:each="category:${categories}" th:value="${category.categoryId}" th:text="${category.name}"></option>-->
+<!--        </select>-->
+<!--    </div>-->
+
+<!--    <div class="select-item">-->
+<!--        <label class="select-label">品种</label>-->
+<!--        <select name="" class="select-comboBox product" id="product-comboBox">-->
+<!--            <option value="null" selected>————</option>-->
+<!--            <option th:each="product:${products}" th:value="${product.productId} + '_' + ${product.categoryId}" th:text="${product.name}"></option>-->
+<!--        </select>-->
+<!--    </div>-->
+
     <div class="select-item">
         <label class="select-label">种类</label>
-        <select name="" class="select-comboBox category" id="category-comboBox">
+        <select name="categoryId" class="select-comboBox category" id="category-comboBox">
             <option value="null" selected>————</option>
             <option th:each="category:${categories}" th:value="${category.categoryId}" th:text="${category.name}"></option>
         </select>
@@ -29,11 +45,12 @@
 
     <div class="select-item">
         <label class="select-label">品种</label>
-        <select name="" class="select-comboBox product" id="product-comboBox">
+        <select name="productIdCategoryId" class="select-comboBox product" id="product-comboBox">
             <option value="null" selected>————</option>
             <option th:each="product:${products}" th:value="${product.productId} + '_' + ${product.categoryId}" th:text="${product.name}"></option>
         </select>
     </div>
+
 
     <div class="screen-btns">
         <button class="btn screen-btn blue" id="btn-select">筛选</button>
@@ -41,10 +58,6 @@
         <button class="btn screen-btn gray" id="btn-new">新增</button>
     </div>
 
-<!--    <div class="pet-search">-->
-<!--        <input type="text" class="search-input" id="search-input" placeholder="请输入宠物ID">-->
-<!--        <button class="btn search-btn" id="search-btn">搜索</button>-->
-<!--    </div>-->
     <!-- 新增通过itemid搜索的输入框和按钮 -->
     <div class="pet-search">
         <input type="text" class="search-input" id="search-itemid-input" placeholder="请输入宠物编号（itemid）">
@@ -208,6 +221,39 @@
     });
 </script>
 
+<script>
+    $(document).ready(function () {
+        // 筛选按钮点击事件
+        $('#btn-select').on('click', function () {
+            var selectedCategory = $('#category-comboBox').val();
+            var selectedProduct = $('#product-comboBox').val();
+
+            var url = "/petManage/itemManage";  // 默认跳转到 itemManage 页面
+
+            // 如果选择了种类，则附加 categoryId 参数
+            if (selectedCategory !== "null") {
+                url += "?categoryId=" + encodeURIComponent(selectedCategory);
+            }
+
+            // 如果选择了品种，则附加 productId_categoryId 参数
+            if (selectedProduct !== "null") {
+                if (url.indexOf('?') === -1) {
+                    url += "?productIdCategoryId=" + encodeURIComponent(selectedProduct);
+                } else {
+                    url += "&productIdCategoryId=" + encodeURIComponent(selectedProduct);
+                }
+            }
+
+            // 跳转到筛选结果页面
+            window.location.href = url;
+        });
+
+        // 重置按钮，恢复到初始状态
+        $('#btn-reset').on('click', function () {
+            window.location.href = "/petManage/itemManage";  // 重置筛选条件
+        });
+    });
+</script>
 <script src="/js/petManage.js"></script>
 <script src="/js/petManage-item.js"></script>
 <script src="/js/includePage.js"></script>

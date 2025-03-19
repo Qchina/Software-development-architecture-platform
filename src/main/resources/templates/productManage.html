@@ -39,7 +39,6 @@
       margin-right: 90px;
     }
 
-
   </style>
 </head>
 
@@ -47,11 +46,24 @@
 <div class="pet-screen">
   <div class="select-item">
     <label class="select-label">种类</label>
-    <select name="" class="select-comboBox category" id="category-comboBox">
-      <option value="null" selected>————</option>
-      <option th:each="category:${categories}" th:value="${category.categoryId}"
-              th:text="${category.name}"></option>
+
+<!--    <select name="categoryId" class="select-comboBox" id="category-comboBox">-->
+<!--      <option value="null" th:selected="${selectedCategoryId == 'null'}">———— </option>-->
+<!--      <option th:each="category : ${categories}"-->
+<!--              th:value="${category}"-->
+<!--              th:text="${category}"-->
+<!--              th:selected="${category == selectedCategoryId}"></option>-->
+<!--    </select>-->
+    <select name="categoryId" class="select-comboBox" id="category-comboBox">
+      <option value="null" th:selected="${selectedCategoryId == 'null'}">————</option>
+      <option th:each="category : ${categories}"
+              th:value="${category.categoryId}"
+              th:text="${category.categoryId}"
+              th:selected="${category.categoryId == selectedCategoryId}"></option>
     </select>
+
+
+
   </div>
 
   <div class="screen-btns">
@@ -137,10 +149,7 @@
       <td th:text="${product.name}" id="tableProductName"></td>
 <!--      <td> <img th:src="@{${product.description}}" id="tableProductImg"></td>-->
       <td th:utext="${product.description}"></td>
-<!--      <td class="btns-action">-->
-<!--        <button class="action-btn" id="edit-product-btn">编辑</button>-->
-<!--        <button class="action-btn" id="delete-product-btn">删除</button>-->
-<!--      </td>-->
+
       <td th:width="120px" class="btns-action">
         <div style="display: flex ;gap: 8px" >
           <button class="action-btn" id="edit-product-btn">编辑</button>
@@ -173,10 +182,35 @@
       var name = $('#search-input').val();
       if (name) {
         window.location.href = '/petManage/searchProductByName?name=' + encodeURIComponent(name);
+      }else {
+        alert("该商品不存在!");
       }
     });
   });
 </script>
+
+<script>
+  document.getElementById("btn-select").addEventListener("click", function () {
+    let selectedCategory = document.getElementById("category-comboBox").value;
+    if (selectedCategory !== "null") {
+      window.location.href = "/petManage/productManage?categoryId=" + encodeURIComponent(selectedCategory);
+    } else {
+      // 如果选择的是 "null"（即没有选择任何分类），则不进行筛选
+      alert("请选择一个分类！");
+    }
+  });
+</script>
+<!--重置页面-->
+<script>
+  document.getElementById("btn-reset").addEventListener("click", function () {
+    // 清空下拉框选中的值（即选择“——category——”）
+    document.getElementById("category-comboBox").value = "null";
+
+    // 刷新页面，回到展示所有商品的页面
+    window.location.href = "/petManage/productManage";  // 假设这是展示所有商品的路径
+  });
+</script>
+
 
 <script src="/js/petManage.js"></script>
 <script src="/js/petManage-product.js"></script>

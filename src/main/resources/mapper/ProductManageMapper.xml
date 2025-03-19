@@ -35,4 +35,9 @@
     <select id="searchProductManageByName" resultMap="productMap">
         SELECT * FROM product WHERE name LIKE CONCAT('%', #{name}, '%')
     </select>
+
+    <select id="getProductManageListByCategory" parameterType="java.lang.String" resultMap="productMap">
+        SELECT * FROM product WHERE category = #{categoryId}
+    </select>
+
 </mapper>

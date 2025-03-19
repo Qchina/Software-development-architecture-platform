@@ -20,5 +20,11 @@ public interface ItemManageMapper {
 
     // 动态更新商品状态（上架/下架）
     void updateItemStatus(@Param("itemId") String itemId, @Param("status") String status);
+
+    // 根据 productId 和 categoryId 查询 Item
+    List<ItemManage> getItemsByProductAndCategory(@Param("productId") String productId, @Param("categoryId") String categoryId);
+
+    // 根据 categoryId 查询 Item
+    List<ItemManage> getItemsByCategory(@Param("categoryId") String categoryId);
 }
 
