@@ -1,18 +1,200 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="zh">
 <head>
     <meta charset="UTF-8">
-    <title>MyPetStore</title>
-    <link rel="StyleSheet" href="/css/mypetstore.css" type="text/css" media="screen" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyPetStore 宠物商店</title>
+    <style>
+        :root {
+            --primary-color: #ff9900;
+            --secondary-color: #f9f9f9;
+            --text-color: #444;
+            --transition-time: 0.3s;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            transition: all var(--transition-time) ease;
+        }
+
+        body {
+            background: linear-gradient(135deg, rgba(255,251,240,0.5) 0%, rgba(255,255,255,0.5) 100%);
+            background-image: url("https://haowallpaper.com/link/common/file/previewFileImg/15373313744670016");
+            background-color: rgba(255, 255, 255, 0);
+            background-blend-mode: lighten;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            filter: contrast(1.1) brightness(1.05);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        h1 {
+            font-size: 3.2rem;
+            font-weight: 800;
+            color: var(--text-color);
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.15);
+            margin-bottom: 2rem;
+            padding-bottom: 0.8rem;
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(20px) translateX(-20px); /* 增加水平偏移 */;
+            animation: fadeInUp 0.8s forwards;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2.5rem;
+            justify-content: flex-start;
+            width: 100%;
+            max-width: 1200px;
+            padding: 2rem;
+            opacity: 0.8;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s 0.3s forwards;
+            margin-left: 20px; /* 新增左移间距 */
+        }
+
+        .box {
+            position: relative;
+            width: 100%;
+            max-width: 320px;
+            height: 220px;
+            border-radius: 20px;
+            overflow: hidden;
+            cursor: pointer;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+            transition: all var(--transition-time) ease;
+        }
+
+        @media (min-width: 768px) {
+            .box {
+                width: calc(50% - 1.25rem);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .box {
+                width: 320px;
+            }
+        }
+
+        .box:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.25);
+        }
+
+        .box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform var(--transition-time) ease;
+        }
+
+        .box:hover img {
+            transform: scale(1.05);
+        }
+
+        .overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(0deg, rgba(0, 0, 0, 0.8) 0%, transparent 40%);
+            color: #000000; /* 更改字体颜色为黑色 */
+            padding: 1.2rem;
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: 600;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all var(--transition-time) ease;
+        }
+
+        .box:hover .overlay {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 新增加载动画 */
+        .loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            transition: opacity 0.3s ease;
+        }
+
+        .loading::after {
+            content: '';
+            width: 60px;
+            height: 60px;
+            border: 6px solid var(--primary-color);
+            border-top-color: transparent;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
 </head>
 <body>
-<div id="Content">
-    <h2>Welcome to JPetStore 6</h2>
+<div class="loading"></div>
 
-    <p><a href="petManage/categoryManage">Enter the Store</a></p>
+<h1>🐾 Welcome to MyPetStore 🐶</h1>
 
-    <p><sub>Copyright Central South University</sub></p>
+<div class="container">
+    <!-- 客户端入口 -->
+    <a href="" class="box">
+        <img src="https://images.unsplash.com/photo-1555685812-4b943f1cb0eb?w=1000&auto=format&fit=crop" alt="客户入口">
+        <div class="overlay">商店客户版入口</div>
+    </a>
 
+    <!-- 商家端入口 -->
+    <a href="petManage/categoryManage" class="box">
+        <img src="https://images.unsplash.com/photo-1501504905252-473c47e087f8?w=1000&auto=format&fit=crop" alt="商家入口">
+        <div class="overlay">商店商家版入口</div>
+    </a>
 </div>
+
+<script>
+    // 模拟加载效果
+    window.addEventListener('load', () => {
+        const loading = document.querySelector('.loading');
+        loading.style.opacity = '0';
+        setTimeout(() => {
+            loading.style.display = 'none';
+        }, 300);
+    });
+</script>
 </body>
 </html>
