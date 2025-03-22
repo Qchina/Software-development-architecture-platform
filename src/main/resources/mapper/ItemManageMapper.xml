@@ -71,7 +71,15 @@
         FROM item i
                  JOIN product p ON i.productid = p.productid
         WHERE p.category = #{categoryId}
-    </select
-    >
+    </select>
+
+    <!--自动补全-->
+    <select id="searchItemsByKeyword" resultType="com.example.mypetstore.domain.ItemManage">
+        SELECT itemid, productid, listprice, unitcost, supplier AS supplierId, status,
+               attr1 AS attribute1
+        FROM item
+        WHERE itemid LIKE #{keyword}
+           OR productid LIKE #{keyword}
+    </select>
 
 </mapper>

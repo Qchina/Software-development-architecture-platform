@@ -2,6 +2,7 @@ package com.example.mypetstore.persistence;
 
 import com.example.mypetstore.domain.ProductManage;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -13,4 +14,5 @@ public interface ProductManageMapper {
     void deleteProductManage(String productId);
     List<ProductManage> searchProductManageByName(String name);
     List<ProductManage> getProductManageListByCategory(String categoryId);
+    List<ProductManage> searchProductsByKeyword(@Param("keyword") String keyword);
 }

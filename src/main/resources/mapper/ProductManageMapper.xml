@@ -39,5 +39,8 @@
     <select id="getProductManageListByCategory" parameterType="java.lang.String" resultMap="productMap">
         SELECT * FROM product WHERE category = #{categoryId}
     </select>
+    <select id="searchProductsByKeyword" resultMap="productMap">
+        SELECT * FROM product WHERE name LIKE #{keyword}
+    </select>
 
 </mapper>

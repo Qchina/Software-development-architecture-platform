@@ -26,5 +26,8 @@ public interface ItemManageMapper {
 
     // 根据 categoryId 查询 Item
     List<ItemManage> getItemsByCategory(@Param("categoryId") String categoryId);
+
+    //Item自动补全
+    List<ItemManage> searchItemsByKeyword(@Param("keyword") String keyword);
 }
 

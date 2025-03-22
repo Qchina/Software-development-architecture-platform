@@ -54,47 +54,66 @@
     color: #fff;
 }
 
-/* 搜索 */
-.w .pet-screen .pet-search{
+/* 搜索框 */
+.w .pet-screen .pet-search {
+    position: relative; /* 让搜索框成为相对定位的父元素 */
     display: inline-block;
 }
-.w .pet-screen .pet-search .search-input{
+
+.w .pet-screen .pet-search .search-input {
     width: 200px;
     height: 30px;
-    margin-left: 30px;
+    margin-left: 30px; /* 确保整体对齐 */
     line-height: 35px;
     font-size: 15px;
     border: 2px solid rgb(190, 158, 111);
     outline: none;
     padding-left: 10px;
 }
-.w .pet-screen .pet-search .btn.search-btn{
+
+/* 搜索按钮 */
+.w .pet-screen .pet-search .btn.search-btn {
     position: absolute;
     width: 80px;
     height: 34px;
     line-height: 35px;
     padding: 0 10px;
 }
-.w .pet-screen .pet-search .btn.search-btn:active{
-    background: #c9c9c9;
-    color: #7b7575;
-}
-/*自动补全 默认不显示*/
-.w .search-auto-complete{
+
+/* 自动补全列表 */
+.w .pet-screen .search-auto-complete {
     position: absolute;
-    width: 398px;
-    line-height: 30px;
-    font-size: 18px;
-    top: 200px;
-    left: 465px;
-    background: #e7e7e7;
+    width: 200px; /* 宽度与输入框保持一致 */
+    max-height: 300px;
+    top: calc(100% + 2px); /* 紧贴搜索框底部 */
+    left: 30px; /* 确保左侧对齐输入框 */
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 0 0 4px 4px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     z-index: 999;
     display: none;
+    overflow-y: auto;
 }
-.w .search-auto-complete .auto-complete-list li{
-    padding-left: 5px;
+
+.w .search-auto-complete .auto-complete-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.w .search-auto-complete .auto-complete-list li {
+    padding: 8px 12px;
     cursor: pointer;
+    font-size: 14px;
+    line-height: 1.5;
 }
+
+.w .search-auto-complete .auto-complete-list li:hover {
+    background-color: #f5f5f5;
+    color: rgb(190, 158, 111);
+}
+
 
 /* 添加宠物 */
 .w .pet-add{

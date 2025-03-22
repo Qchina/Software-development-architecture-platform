@@ -9,10 +9,7 @@ import com.example.mypetstore.persistence.ProductManageMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Objects;
@@ -33,6 +30,19 @@ public class PetManageController {
     public ItemManageMapper itemMapper;
     @Autowired
     private ItemManageMapper itemManageMapper;
+
+    //自动补全item
+    @GetMapping("/searchItems")
+    @ResponseBody
+    public List<ItemManage> searchItems(@RequestParam String keyword) {
+        return itemMapper.searchItemsByKeyword("%" + keyword + "%");
+    }
+    //自动补全product
+    @GetMapping("/searchProducts")
+    @ResponseBody
+    public List<ProductManage> searchProducts(@RequestParam String keyword) {
+        return productMapper.searchProductsByKeyword("%" + keyword + "%");
+    }
 
     @GetMapping("/categoryManage")//http://localhost:8080/petManage/categoryManage
     public String categoryManage(Model model) {
