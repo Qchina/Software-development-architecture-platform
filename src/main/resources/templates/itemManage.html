@@ -19,27 +19,31 @@
 
 <th:block th:include="~{IncludePage}"></th:block>
 <div class="pet-screen">
-<!--    <div class="select-item">-->
-<!--        <label class="select-label">种类</label>-->
-<!--        <select name="" class="select-comboBox category" id="category-comboBox">-->
-<!--            <option value="null" selected>————</option>-->
-<!--            <option th:each="category:${categories}" th:value="${category.categoryId}" th:text="${category.name}"></option>-->
-<!--        </select>-->
-<!--    </div>-->
+    <!--    <div class="select-item">-->
+    <!--        <label class="select-label">种类</label>-->
+    <!--        <select name="" class="select-comboBox category" id="category-comboBox">-->
+    <!--            <option value="null" selected>————</option>-->
+    <!--            <option th:each="category:${categories}" th:value="${category.categoryId}" th:text="${category.name}"></option>-->
+    <!--        </select>-->
+    <!--    </div>-->
 
-<!--    <div class="select-item">-->
-<!--        <label class="select-label">品种</label>-->
-<!--        <select name="" class="select-comboBox product" id="product-comboBox">-->
-<!--            <option value="null" selected>————</option>-->
-<!--            <option th:each="product:${products}" th:value="${product.productId} + '_' + ${product.categoryId}" th:text="${product.name}"></option>-->
-<!--        </select>-->
-<!--    </div>-->
+    <!--    <div class="select-item">-->
+    <!--        <label class="select-label">品种</label>-->
+    <!--        <select name="" class="select-comboBox product" id="product-comboBox">-->
+    <!--            <option value="null" selected>————</option>-->
+    <!--            <option th:each="product:${products}" th:value="${product.productId} + '_' + ${product.categoryId}" th:text="${product.name}"></option>-->
+    <!--        </select>-->
+    <!--    </div>-->
 
     <div class="select-item">
         <label class="select-label">种类</label>
         <select name="categoryId" class="select-comboBox category" id="category-comboBox">
             <option value="null" selected>————</option>
-            <option th:each="category:${categories}" th:value="${category.categoryId}" th:text="${category.name}"></option>
+            <option th:each="category:${categories}"
+                    th:value="${category.categoryId}"
+                    th:text="${category.name}"
+                    th:selected="${param.categoryId != null && param.categoryId[0] == category.categoryId}">
+            </option>
         </select>
     </div>
 
@@ -47,7 +51,11 @@
         <label class="select-label">品种</label>
         <select name="productIdCategoryId" class="select-comboBox product" id="product-comboBox">
             <option value="null" selected>————</option>
-            <option th:each="product:${products}" th:value="${product.productId} + '_' + ${product.categoryId}" th:text="${product.name}"></option>
+            <option th:each="product:${products}"
+                    th:value="${product.productId} + '_' + ${product.categoryId}"
+                    th:text="${product.name}"
+                    th:selected="${param.productIdCategoryId != null && param.productIdCategoryId[0] == product.productId + '_' + product.categoryId}">
+            </option>
         </select>
     </div>
 
@@ -165,10 +173,10 @@
             <td th:text="${item.supplierId}"></td>
             <td th:text="${item.status}"></td>
             <td th:text="${item.attribute1}"></td>
-<!--            <td class="btns-action">-->
-<!--                <button class="action-btn" id="edit-item-btn">编辑</button>-->
-<!--                <button class="action-btn" id="delete-item-btn">删除</button>-->
-<!--            </td>-->
+            <!--            <td class="btns-action">-->
+            <!--                <button class="action-btn" id="edit-item-btn">编辑</button>-->
+            <!--                <button class="action-btn" id="delete-item-btn">删除</button>-->
+            <!--            </td>-->
             <td th:width="120px" class="btns-action">
                 <div style="display: flex ;gap: 8px" >
                     <button class="action-btn" id="edit-item-btn">编辑</button>
