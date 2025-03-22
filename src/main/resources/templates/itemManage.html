@@ -195,7 +195,7 @@
                         <button type="submit" class="action-btn red" th:if="${item.status == 'd'}">上架</button>
                     </form>
 
-                    <!-- 下架按钮：仅在商品状态为 "P"（上架）时显示 -->
+
                     <form action="updateItemStatus" method="post" style="display: inline;">
                         <input type="hidden" name="itemId" th:value="${item.itemId}" />
                         <input type="hidden" name="status" value="d" />
