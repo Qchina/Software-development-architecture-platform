@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/css/mypetstore.css" type="text/css" media="screen">
+</head>
+<body>
+<header th:replace="common/top"></header>
+
+<div id="BackLink">
+    <a href="catalog/index">Return to Main Menu</a>
+</div>
+<div id="Catalog">
+    <h2>  NOT FOUND ?</h2>
+    <h2>Please input product name</h2>
+    <a href="catalog/index"><h2><font color="blue">Return to Main Menu</font></h2></a>
+</div>
+
+<footer th:replace="common/bottom"></footer>
+</body>
+</html>
