@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mypetstore.persistence.SignonManageMapper">
+
+    <resultMap id="SignonMap" type="com.example.mypetstore.domain.SignonManage">
+        <id property="username" column="username"/>
+        <result property="password" column="password"/>
+    </resultMap>
+    <!-- 获取所有登录凭证 -->
+    <select id="getSignonManageList" resultMap="SignonMap">
+        SELECT * FROM signon
+    </select>
+
+    <insert id="addSignonManage" parameterType="com.example.mypetstore.domain.SignonManage">
+        INSERT INTO signon (username,password)
+        VALUES (#{username}, #{password})
+    </insert>
+
+    <update id="updateSignonManage" parameterType="com.example.mypetstore.domain.SignonManage">
+        UPDATE signon
+        SET  username = #{username}, password = #{password}
+        WHERE username = #{username}
+    </update>
+
+    <delete id="deleteSignonManage" parameterType="java.lang.String">
+        DELETE FROM signon WHERE username = #{username}
+    </delete>
+
+    <select id="getSignonManageById" resultType="com.example.mypetstore.domain.SignonManage" parameterType="java.lang.String">
+        SELECT username,password
+        FROM signon
+        WHERE username = #{username}
+    </select>
+
+    <!-- 根据username获取登录凭证 -->
+<!--    <select id="getSignonManageByUsername" resultType="com.example.mypetstore.domain.SignonManage" parameterType="java.lang.String">-->
+<!--        SELECT username,password-->
+<!--        FROM signon-->
+<!--        WHERE username = #{username}-->
+<!--    </select>-->
+<!--    &lt;!&ndash; 插入新登录凭证 &ndash;&gt;-->
+<!--    <insert id="addSignonManage" parameterType="com.example.mypetstore.domain.SignonManage">-->
+<!--        INSERT INTO signon (username,password)-->
+<!--        VALUES (#{username}, #{password})-->
+<!--    </insert>-->
+<!--    &lt;!&ndash; 更新登录凭证 &ndash;&gt;-->
+<!--    <update id="updateSignonManage" parameterType="com.example.mypetstore.domain.SignonManage">-->
+<!--        UPDATE signon-->
+<!--        SET password = #{password}-->
+
+<!--        WHERE username = #{username}-->
+<!--    </update>-->
+<!--    &lt;!&ndash; 删除登录凭证 &ndash;&gt;-->
+<!--    <delete id="deleteSignonManage" parameterType="java.lang.String">-->
+<!--        DELETE FROM signon-->
+<!--        WHERE username = #{username}-->
+<!--    </delete>-->
+
+</mapper>

@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>用户管理</title>
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/petManage2.css">
+    <style>
+        /* 左侧标签栏选中 */
+        .nav-left .nav-left-item.selfInfo {
+            background: #999;
+            color: #fcf9f9;
+        }
+
+        .w .pet-screen .select-item {
+            padding-left: 100px;
+        }
+
+        .w .pet-add .pet-add-input, .w .pet-edit .pet-edit-input {
+            width: 300px;
+            display: flex;
+            flex-wrap: wrap;
+            margin-left: 65px;
+        }
+
+        .w .pet-add .pet-add-item, .w .pet-edit .pet-edit-item {
+            display: flex;
+            flex-wrap: nowrap;
+            justify-content: right;
+            align-items: center;
+            margin-right: 0;
+        }
+
+        .w .pet-add .pet-add-buttons , .w .pet-edit .pet-edit-buttons {
+            bottom: 90px;
+            margin-right: 90px;
+        }
+    </style>
+</head>
+<th:block th:include="~{IncludePage}"></th:block>
+<div class="pet-screen">
+    <div class="screen-btns">
+        <button class="btn screen-btn gray" id="btn-new">新增</button>
+    </div>
+
+    <div class="pet-search">
+        <input type="text" class="search-input" id="search-userid-input" placeholder="请输入用户名">
+        <button class="btn search-btn" id="search-userid-btn">搜索</button>
+    </div>
+</div>
+<div class="search-auto-complete" id="auto-complete">
+    <ul class="auto-complete-list" id="auto-complete-list">
+
+    </ul>
+</div>
+
+<form action="addAccountManage" method="POST" class="pet-add" id="add-form">
+        <div class="pet-add-item">
+            <label class="add-item-label">用户id</label>
+            <input type="text" class="add-item-input" id="add-userid" placeholder="请输入用户id" name="userid">
+        </div>
+        <div class="pet-add-item">
+            <label class="add-item-label">邮箱</label>
+            <input type="text" class="add-item-input" id="add-email" placeholder="请输入邮箱" name="email">
+        </div>
+        <div class="pet-add-item">
+            <label class="add-item-label">姓</label>
+            <input type="text" class="add-item-input" id="add-firstname" placeholder="请输入姓" name="firstName">
+        </div>
+        <div class="pet-add-item">
+            <label class="add-item-label">名</label>
+            <input type="text" class="add-item-input" id="add-lastname" placeholder="请输入名" name="lastName">
+        </div>
+        <div class="pet-add-item">
+            <label class="add-item-label">status</label>
+            <input type="text" class="add-item-input" id="add-status" placeholder="请输入status" name="status">
+        </div>
+        <div class="pet-add-item">
+            <label class="add-item-label">地址1</label>
+            <input type="text" class="add-item-input" id="add-addr1" placeholder="请输入地址1" name="address1">
+        </div>
+        <div class="pet-add-item">
+            <label class="add-item-label">地址2</label>
+            <input type="text" class="add-item-input" id="add-addr2" placeholder="请输入地址2" name="address2">
+        </div>
+        <div class="pet-add-item">
+            <label class="add-item-label">城市</label>
+            <input type="text" class="add-item-input" id="add-city" placeholder="请输入城市" name="city">
+        </div>
+        <div class="pet-add-item">
+            <label class="add-item-label">state</label>
+            <input type="text" class="add-item-input" id="add-state" placeholder="请输入state" name="state">
+        </div>
+        <div class="pet-add-item">
+            <label class="add-item-label">zip</label>
+            <input type="text" class="add-item-input" id="add-zip" placeholder="请输入zip" name="zip">
+        </div>
+        <div class="pet-add-item">
+            <label class="add-item-label">country</label>
+            <input type="text" class="add-item-input" id="add-country" placeholder="请输入country" name="country">
+        </div>
+        <div class="pet-add-item">
+            <label class="add-item-label">电话</label>
+            <input type="text" class="add-item-input" id="add-phone" placeholder="请输入电话" name="phone">
+        </div>
+    <div class="pet-add-buttons">
+        <button class="btn add-pet-btn gray" id="confirm-addProduct-btn">确认添加</button>
+        <button class="btn add-pet-btn gray" id="close-form-btn" type="button">关闭</button>
+    </div>
+</form>
+
+
+<form action="editAccountManage" method="POST" class="pet-edit" id="edit-form">
+        <div class="pet-edit-item">
+            <label class="edit-item-label">用户id</label>
+            <input type="text" class="edit-item-input" id="edit-userid" placeholder="请输入用户id" name="userid">
+        </div>
+        <div class="pet-edit-item">
+            <label class="edit-item-label">邮箱</label>
+            <input type="text" class="edit-item-input" id="edit-email" placeholder="请输入邮箱" name="email">
+        </div>
+        <div class="pet-edit-item">
+            <label class="edit-item-label">姓</label>
+            <input type="text" class="edit-item-input" id="edit-firstname" placeholder="请输入姓" name="firstName">
+        </div>
+        <div class="pet-edit-item">
+            <label class="edit-item-label">名</label>
+            <input type="text" class="edit-item-input" id="edit-lastname" placeholder="请输入名" name="lastName">
+        </div>
+        <div class="pet-edit-item">
+            <label class="edit-item-label">status</label>
+            <input type="text" class="edit-item-input" id="edit-status" placeholder="请输入status" name="status">
+        </div>
+        <div class="pet-edit-item">
+            <label class="edit-item-label">地址1</label>
+            <input type="text" class="edit-item-input" id="edit-addr1" placeholder="请输入地址1" name="address1">
+        </div>
+        <div class="pet-edit-item">
+            <label class="edit-item-label">地址2</label>
+            <input type="text" class="edit-item-input" id="edit-addr2" placeholder="请输入地址2" name="address2">
+        </div>
+        <div class="pet-edit-item">
+            <label class="edit-item-label">城市</label>
+            <input type="text" class="edit-item-input" id="edit-city" placeholder="请输入城市" name="city">
+        </div>
+        <div class="pet-edit-item">
+            <label class="edit-item-label">state</label>
+            <input type="text" class="edit-item-input" id="edit-state" placeholder="请输入state" name="state">
+        </div>
+        <div class="pet-edit-item">
+            <label class="edit-item-label">zip</label>
+            <input type="text" class="edit-item-input" id="edit-zip" placeholder="请输入zip" name="zip">
+        </div>
+        <div class="pet-edit-item">
+            <label class="edit-item-label">country</label>
+            <input type="text" class="edit-item-input" id="edit-country" placeholder="请输入country" name="country">
+        </div>
+        <div class="pet-edit-item">
+            <label class="edit-item-label">电话</label>
+            <input type="text" class="edit-item-input" id="edit-phone" placeholder="请输入电话" name="phone">
+        </div>
+    <div class="pet-edit-buttons">
+        <button class="btn edit-pet-btn gray" id="confirm-edit-btn" type="submit">确认编辑</button>
+        <button class="btn edit-pet-btn gray" id="close-edit-form-btn" type="button">关闭</button>
+    </div>
+</form>
+
+
+
+<div class="pet-table">
+    <table class="table" id="pet-table">
+        <tr class="table-title">
+            <th class="col1">用户id</th>
+            <th class="col2">邮箱</th>
+            <th class="col3">姓</th>
+            <th class="col4">名</th>
+            <th class="col5">status</th>
+            <th class="col6">地址1</th>
+            <th class="col7">地址2</th>
+            <th class="col8">城市</th>
+            <th class="col9">state</th>
+            <th class="col10">zip</th>
+            <th class="col11">country</th>
+            <th class="col12">电话</th>
+            <th class="col13">操作</th>
+        </tr>
+
+        <tr th:each="account:${accounts}"  id="pet-row">
+            <td th:text="${account.userid}" id="tableAccountId"></td>
+            <td th:text="${account.email}"></td>
+            <td th:text="${account.firstName}"></td>
+            <td th:text="${account.lastName}"></td>
+            <td th:text="${account.status}"></td>
+            <td th:text="${account.address1}"></td>
+            <td th:text="${account.address2}"></td>
+            <td th:text="${account.city}"></td>
+            <td th:text="${account.state}"></td>
+            <td th:text="${account.zip}"></td>
+            <td th:text="${account.country}"></td>
+            <td th:text="${account.phone}"></td>
+            <td th:width="120px" class="btns-action">
+                <div style="display: flex ;gap: 8px" >
+                    <button class="action-btn" id="edit-account-btn">编辑</button>
+                    <form action="deleteAccountManage" method="post"
+                          onsubmit="return confirm('确定要删除该用户吗？');">
+                        <input type="hidden" name="userid" th:value="${account.userid}" />
+                        <button type="submit" class="action-btn">删除</button>
+                    </form>
+                </div>
+            </td>
+        </tr>
+    </table>
+
+    <div class="nav-bottom">
+        <p class="total">共1条 1页</p>
+        <div class="link">上一页</div>
+        <p class="current-page">第1页</p>
+        <div class="link">下一页</div>
+    </div>
+</div>
+</div>
+</body>
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#search-userid-btn').on('click', function () {
+            var userid = $('#search-userid-input').val();
+            if (userid) {
+                window.location.href ='/userManage/getAccountManageById?userid=' + encodeURIComponent(userid);
+            }
+        });
+    });
+</script>
+<script src="/js/petManage.js"></script>
+<script src="/js/userManage.js"></script>
+<script src="/js/includePage.js"></script>
+</html>

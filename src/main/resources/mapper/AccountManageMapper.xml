@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mypetstore.persistence.AccountManageMapper">
+
+    <!-- 定义 resultMap -->
+    <resultMap id="AccountMap" type="com.example.mypetstore.domain.AccountManage">
+        <id property="userid" column="userid"/>
+        <result property="email" column="email"/>
+        <result property="firstName" column="firstname"/>
+        <result property="lastName" column="lastname"/>
+        <result property="status" column="status"/>
+        <result property="address1" column="addr1"/>
+        <result property="address2" column="addr2"/>
+        <result property="city" column="city"/>
+        <result property="state" column="state"/>
+        <result property="zip" column="zip"/>
+        <result property="country" column="country"/>
+        <result property="phone" column="phone"/>
+    </resultMap>
+
+    <select id="getAccountManageList" resultMap="AccountMap">
+        SELECT * FROM account
+    </select>
+
+    <insert id="addAccountManage" parameterType="com.example.mypetstore.domain.AccountManage">
+        INSERT INTO account (userid,email,firstname,lastname,status,addr1,addr2,city,state,zip,country,phone)
+        VALUES (#{userid}, #{email}, #{firstName},#{lastName}, #{status}, #{address1},#{address2}, #{city}, #{state},#{zip}, #{country}, #{phone})
+    </insert>
+
+    <update id="updateAccountManage" parameterType="com.example.mypetstore.domain.AccountManage">
+        UPDATE account
+        SET  userid = #{userid}, email = #{email},  firstname = #{firstName}, lastname = #{lastName}, status = #{status},  addr1 = #{address1}, addr2 = #{address2}, city = #{city},  state = #{state}, zip = #{zip}, country = #{country},  phone = #{phone}
+        WHERE userid = #{userid}
+    </update>
+
+    <delete id="deleteAccountManage" parameterType="java.lang.String">
+        DELETE FROM account WHERE userid = #{userid}
+    </delete>
+
+    <select id="getAccountManageById" resultType="com.example.mypetstore.domain.AccountManage" parameterType="java.lang.String">
+        SELECT userid, email, firstname AS firstName, lastname AS lastName , status, addr1 AS address1 ,addr2 AS address2, city,state,zip,country,phone
+        FROM account
+        WHERE userid = #{userid}
+    </select>
+</mapper>
