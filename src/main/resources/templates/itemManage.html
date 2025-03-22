@@ -39,7 +39,7 @@
         <label class="select-label">种类</label>
         <select name="categoryId" class="select-comboBox category" id="category-comboBox">
             <option value="null" selected>————</option>
-            <option th:each="category:${categories}" th:value="${category.categoryId}" th:text="${category.name}"></option>
+            <option th:each="category:${categories}" th:value="${category.categoryId}" th:text="${category.name}" th:selected="${param.categoryId != null && param.categoryId[0] == category.categoryId}"></option>
         </select>
     </div>
 
@@ -47,7 +47,7 @@
         <label class="select-label">品种</label>
         <select name="productIdCategoryId" class="select-comboBox product" id="product-comboBox">
             <option value="null" selected>————</option>
-            <option th:each="product:${products}" th:value="${product.productId} + '_' + ${product.categoryId}" th:text="${product.name}"></option>
+            <option th:each="product:${products}" th:value="${product.productId} + '_' + ${product.categoryId}" th:text="${product.name}" th:selected="${param.productIdCategoryId != null && param.productIdCategoryId[0] == product.productId + '_' + product.categoryId}"></option>
         </select>
     </div>
 
