@@ -37,6 +37,10 @@
             bottom: 90px;
             margin-right: 90px;
         }
+
+        .w .pet-screen .screen-btns {
+            padding-left: 282px;
+        }
     </style>
 </head>
 <th:block th:include="~{IncludePage}"></th:block>
@@ -204,9 +208,9 @@
                 <div style="display: flex ;gap: 8px" >
                     <button class="action-btn" id="edit-account-btn">编辑</button>
                     <form action="deleteAccountManage" method="post"
-                          onsubmit="return confirm('确定要删除该用户吗？');">
+                          onsubmit="return confirm('确定要拉黑该用户吗？');">
                         <input type="hidden" name="userid" th:value="${account.userid}" />
-                        <button type="submit" class="action-btn">删除</button>
+                        <button type="submit" class="action-btn">拉黑</button>
                     </form>
                 </div>
             </td>

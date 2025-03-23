@@ -3,9 +3,11 @@ package com.example.mypetstore.controller;
 import com.example.mypetstore.domain.CategoryManage;
 import com.example.mypetstore.domain.ItemManage;
 import com.example.mypetstore.domain.ProductManage;
+import com.example.mypetstore.domain.SignonManage;
 import com.example.mypetstore.persistence.CategoryManageMapper;
 import com.example.mypetstore.persistence.ItemManageMapper;
 import com.example.mypetstore.persistence.ProductManageMapper;
+import com.example.mypetstore.persistence.SignonManageMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,6 +33,15 @@ public class PetManageController {
     @Autowired
     private ItemManageMapper itemManageMapper;
 
+    @Autowired
+    private SignonManageMapper signonMapper;
+
+
+    @GetMapping("/managerLogin")
+    public String managerLogin()
+    {
+        return "managerLogin"; // 对应 resources/templates/merchantLogin.html
+    }
     //自动补全item
     @GetMapping("/searchItems")
     @ResponseBody
@@ -329,5 +340,51 @@ public class PetManageController {
         List<ProductManage> products = productMapper.searchProductManageByName(name);
         model.addAttribute("products", products);
         return "productManage";
+    }
+
+    @GetMapping("/signonManage")
+    public String signonManage(Model model) {
+        List<SignonManage> signons = signonMapper.getSignonManageList();
+        model.addAttribute("signons",signons);
+        return "signonManage";
+    }
+
+    @PostMapping("/addSignonManage")
+    public String addSignonManage(@RequestParam("username") String username,
+                                  @RequestParam("password") String password){
+        SignonManage signonManage = new SignonManage();
+        signonManage.setUsername(username);
+        signonManage.setPassword(password);
+        // 调用 Mapper 插入数据到数据库
+        signonMapper.addSignonManage(signonManage);
+        // 重定向到商品管理页面
+        return "redirect:/petManage/signonManage";
+    }
+
+    @PostMapping("/editSignonManage")
+    public String editSignonManage(@RequestParam("username") String username,
+                                   @RequestParam("password") String password){
+        SignonManage signonManage = new SignonManage();
+        signonManage.setUsername(username);
+        signonManage.setPassword(password);
+        // 调用 Mapper 插入数据到数据库
+        signonMapper.updateSignonManage(signonManage);
+        // 重定向到商品管理页面
+        return "redirect:/petManage/signonManage";
+    }
+
+    @PostMapping("/deleteSignonManage")
+    public String deleteSignonManage(@RequestParam("username") String username) {
+        signonMapper.deleteSignonManage(username);
+        return "redirect:/petManage/signonManage";
+    }
+
+
+    @GetMapping("/getSignonManageById")
+    public String getSignonManageById(@RequestParam("username") String username,Model model)
+    {
+        List<SignonManage> signons = signonMapper.getSignonManageById(username);
+        model.addAttribute("signons",signons);
+        return "signonManage";
     }
 }
