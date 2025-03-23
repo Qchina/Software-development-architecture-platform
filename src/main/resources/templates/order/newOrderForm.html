@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/css/mypetstore.css" type="text/css" media="screen">
+</head>
+<body>
+<header th:replace="common/top"></header>
+
+<div id="Catalog">
+    <form action="/order/confirmOrder" method="post">
+        <table>
+            <tr>
+                <th colspan="2">Payment Details</th>
+            </tr>
+            <tr>
+                <td>Card Type:</td>
+                <td>
+                    <select th:field="*{order.cardType}">
+                        <option th:value="'Visa'" th:text="'Visa'"></option>
+                        <option th:value="'MasterCard'" th:text="'MasterCard'"></option>
+                        <option th:value="'American Express'" th:text="'American Express'"></option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Card Number:</td>
+                <td><input type="text" th:value="'999 9999 9999 9999'" th:field="*{order.creditCard}"/> * Use a fake number!</td>
+            </tr>
+            <tr>
+                <td>Expiry Date (MM/YYYY):</td>
+                <td><input type="text" th:value="'2025/03'" th:field="*{order.expiryDate}"/></td>
+            </tr>
+            <tr>
+                <th colspan="2">Billing Address</th>
+            </tr>
+
+            <tr>
+                <td>First name:</td>
+                <td><input type="text" th:field="*{order.billToFirstName}" th:value="${session.order.billToFirstName}" /></td>
+            </tr>
+            <tr>
+                <td>Last name:</td>
+                <td><input type="text" th:field="*{order.billToLastName}" th:value="${session.order.billToLastName}" /></td>
+            </tr>
+            <tr>
+                <td>Address 1:</td>
+                <td><input type="text" size="40" th:field="*{order.billAddress1}" th:value="${session.order.billAddress1}" /></td>
+            </tr>
+            <tr>
+                <td>Address 2:</td>
+                <td><input type="text" size="40" th:field="*{order.billAddress2}" th:value="${session.order.billAddress2}" /></td>
+            </tr>
+            <tr>
+                <td>City:</td>
+                <td><input type="text" th:field="*{order.billCity}" th:value="${session.order.billCity}" /></td>
+            </tr>
+            <tr>
+                <td>State:</td>
+                <td><input type="text" size="4" th:field="*{order.billState}"  th:value="${session.order.billState}" /></td>
+            </tr>
+            <tr>
+                <td>Zip:</td>
+                <td><input type="text" size="10" th:field="*{order.billZip}" th:value="${session.order.billZip}" /></td>
+            </tr>
+            <tr>
+                <td>Country:</td>
+                <td><input type="text" size="15" th:field="*{order.billCountry}" th:value="${session.order.billCountry}" /></td>
+            </tr>
+
+            <tr>
+                <td colspan="2"><input type="checkbox" name="shippingAddressRequired" id="shippingAddressRequired"/>
+                    Ship to different address...</td>
+            </tr>
+
+        </table>
+
+        <div id="newInfo" style="display: none;">
+            <table>
+                <tr>
+                    <th colspan="2">Shipping Address</th>
+                </tr>
+
+                <tr>
+                    <td>First name:</td>
+                    <td><input type="text" th:field="*{order.shipToFirstName}" th:value="${session.order.shipToFirstName}"/></td>
+                </tr>
+                <tr>
+                    <td>Last name:</td>
+                    <td><input type="text" th:field="*{order.shipToLastName}" th:value="${session.order.shipToLastName}"/></td>
+                </tr>
+                <tr>
+                    <td>Address 1:</td>
+                    <td><input type="text" size="40" th:field="*{order.shipAddress1}" th:value="${session.order.shipAddress1}"/></td>
+                </tr>
+                <tr>
+                    <td>Address 2:</td>
+                    <td><input type="text" size="40" th:field="*{order.shipAddress2}" th:value="${session.order.shipAddress2}"/></td>
+                </tr>
+                <tr>
+                    <td>City:</td>
+                    <td><input type="text" th:field="*{order.shipCity}" th:value="${session.order.shipCity}"/></td>
+                </tr>
+                <tr>
+                    <td>State:</td>
+                    <td><input type="text" size="4" th:field="*{order.shipState}" th:value="${session.order.shipState}"/></td>
+                </tr>
+                <tr>
+                    <td>Zip:</td>
+                    <td><input type="text" size="10" th:field="*{order.shipZip}" th:value="${session.order.shipZip}"/></td>
+                </tr>
+                <tr>
+                    <td>Country:</td>
+                    <td><input type="text" size="15" th:field="*{order.shipCountry}" th:value="${session.order.shipCountry}"/></td>
+                </tr>
+            </table>
+        </div>
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+            $(function() {
+                $('#shippingAddressRequired').change(function() {
+                    if ($(this).is(':checked')) {
+                        $('#newInfo').show();
+                    } else {
+                        $('#newInfo').hide();
+                    }
+                });
+            });
+        </script>
+
+        <input type="submit" value="Continue" />
+
+    </form>
+</div>
+
+<footer th:replace="common/bottom"></footer>
+</body>
+</html>

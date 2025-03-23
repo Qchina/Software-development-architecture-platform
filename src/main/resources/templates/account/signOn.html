@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>MyPetStore</title>
+    <link rel="stylesheet" href="/css/mypetstore.css" type="text/css" media="screen">
+</head>
+<body>
+<header th:replace="common/top"></header>
+
+<div id="Catalog">
+    <form action="/account/signOn" method="post">
+        <p>Please enter your username and password.</p>
+        <span th:if="${loginMsg != null}" th:text="${loginMsg}" style="color: red;"></span>
+        <p>
+            Username:<input type="text" name="username"> <br />
+            Password:<input type="password" name="password"><br>
+            VerificationCode:
+            <input type="text" name="code" size="5" maxlength="4" required/>
+            <!-- 更新验证码图片的路径 -->
+            <a href="javascript:void(0);" onclick="reloadCaptcha()">
+                <img border="0" src="/" name="checkcode" id="captchaImg">
+            </a>
+        </p>
+        <input type="submit" value="Login">
+    </form>
+
+    Need a username and password?
+    <a href="/account/newAccountForm">Register Now!</a>
+
+</div>
+
+<footer th:replace="common/bottom"></footer>
+
+<script>
+    //刷新验证码
+    function reloadCaptcha() {
+        document.getElementById("captchaImg").src = "/account/verificationCode?" + new Date().getTime();
+    }
+</script>
+</body>
+</html>

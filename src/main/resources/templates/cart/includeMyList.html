@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/css/mypetstore.css" type="text/css" media="screen">
+</head>
+<body>
+
+<div th:if="${session.myList != null and not #lists.isEmpty(session.myList)}">
+    <p>Pet Favorites <br />
+        Shop for more of your favorite pets here.</p>
+    <ul>
+
+        <li th:each="product:${myList}">
+            <a th:href="'/catalog/viewProduct?productId=' + ${product.productId}">${product.name}</a>
+            (${product.productId})
+        </li>
+
+    </ul>
+</div>
+
+<script src="/js/myList-decoration.js"></script>
+
+</body>
+</html>

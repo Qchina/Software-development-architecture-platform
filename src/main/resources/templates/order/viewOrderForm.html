@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/css/mypetstore.css" type="text/css" media="screen">
+</head>
+<body>
+<header th:replace="common/top"></header>
+
+<div id="BackLink">
+    <a href="catalog/index">Return to Main Menu</a>
+</div>
+
+<div id="Catalog">
+
+    <table>
+        <!-- Order Header -->
+        <tr>
+            <th align="center" colspan="2">
+                Order #<span th:text="${session.order.orderId}"></span>
+                <span th:text="${#temporals.format(session.order.orderDate, 'yyyy/MM/dd hh:mm:ss')}"></span>
+            </th>
+        </tr>
+
+        <!-- Payment Details -->
+        <tr>
+            <th colspan="2">Payment Details</th>
+        </tr>
+        <tr>
+            <td>Card Type:</td>
+            <td><span th:text="${session.order.cardType}"></span></td>
+        </tr>
+        <tr>
+            <td>Card Number:</td>
+            <td><span th:text="${session.order.creditCard}"></span> * Fake number!</td>
+        </tr>
+        <tr>
+            <td>Expiry Date (MM/YYYY):</td>
+            <td><span th:text="${session.order.expiryDate}"></span></td>
+        </tr>
+
+        <!-- Billing Address -->
+        <tr>
+            <th colspan="2">Billing Address</th>
+        </tr>
+        <tr>
+            <td>First name:</td>
+            <td><span th:text="${session.order.billToFirstName}"></span></td>
+        </tr>
+        <tr>
+            <td>Last name:</td>
+            <td><span th:text="${session.order.billToLastName}"></span></td>
+        </tr>
+        <tr>
+            <td>Address 1:</td>
+            <td><span th:text="${session.order.billAddress1}"></span></td>
+        </tr>
+        <tr>
+            <td>Address 2:</td>
+            <td><span th:text="${session.order.billAddress2}"></span></td>
+        </tr>
+        <tr>
+            <td>City:</td>
+            <td><span th:text="${session.order.billCity}"></span></td>
+        </tr>
+        <tr>
+            <td>State:</td>
+            <td><span th:text="${session.order.billState}"></span></td>
+        </tr>
+        <tr>
+            <td>Zip:</td>
+            <td><span th:text="${session.order.billZip}"></span></td>
+        </tr>
+        <tr>
+            <td>Country:</td>
+            <td><span th:text="${session.order.billCountry}"></span></td>
+        </tr>
+
+        <!-- Shipping Address -->
+        <tr>
+            <th colspan="2">Shipping Address</th>
+        </tr>
+        <tr>
+            <td>First name:</td>
+            <td><span th:text="${session.order.shipToFirstName}"></span></td>
+        </tr>
+        <tr>
+            <td>Last name:</td>
+            <td><span th:text="${session.order.shipToLastName}"></span></td>
+        </tr>
+        <tr>
+            <td>Address 1:</td>
+            <td><span th:text="${session.order.shipAddress1}"></span></td>
+        </tr>
+        <tr>
+            <td>Address 2:</td>
+            <td><span th:text="${session.order.shipAddress2}"></span></td>
+        </tr>
+        <tr>
+            <td>City:</td>
+            <td><span th:text="${session.order.shipCity}"></span></td>
+        </tr>
+        <tr>
+            <td>State:</td>
+            <td><span th:text="${session.order.shipState}"></span></td>
+        </tr>
+        <tr>
+            <td>Zip:</td>
+            <td><span th:text="${session.order.shipZip}"></span></td>
+        </tr>
+        <tr>
+            <td>Country:</td>
+            <td><span th:text="${session.order.shipCountry}"></span></td>
+        </tr>
+        <tr>
+            <td>Courier:</td>
+            <td><span th:text="${session.order.courier}"></span></td>
+        </tr>
+        <tr>
+            <td colspan="2" th:each="status:${session.orderStatus}">Status: <span th:text="${status.status}"></span></td>
+        </tr>
+
+        <!-- Line Items -->
+        <tr>
+            <td colspan="2">
+                <table>
+                    <tr>
+                        <th>Item ID</th>
+                        <th>Description</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th>Total Cost</th>
+                    </tr>
+                    <!-- 使用 th:each 同时遍历 lineItems 和 item -->
+                    <tr th:each="lineItem, iterStat:${session.orderLineItem}">
+                        <td>
+                            <a th:href="'/catalog/viewItem?itemId='+${lineItem.itemId}" th:text="${lineItem.itemId}"></a>
+                        </td>
+                        <td>
+                        <span th:if="${orderItem[iterStat.index] != null}">
+                            <span th:text="${orderItem[iterStat.index].descriptionText}"></span>
+                            <span th:text="${orderItem[iterStat.index].productName}"></span>
+                        </span>
+                            <span th:if="${orderItem[iterStat.index] == null}">
+                            <i>{description unavailable}</i>
+                            </span>
+                        </td>
+                        <td><span th:text="${lineItem.quantity}"></span></td>
+                        <td><span th:text="${#numbers.formatDecimal(lineItem.unitPrice, 1, 2)}"></span></td>
+                        <td><span th:text="${#numbers.formatDecimal(lineItem.unitPrice * lineItem.quantity, 1, 2)}"></span></td>
+                    </tr>
+                    <tr>
+                        <th colspan="5">
+                            Total: <span th:text="${#numbers.formatDecimal(session.order.totalPrice, 1, 2)}"></span>
+                        </th>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+
+</div>
+
+<footer th:replace="common/bottom"></footer>
+</body>
+</html>

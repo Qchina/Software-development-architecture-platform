@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>MyPetStore</title>
+    <link rel="stylesheet" href="/css/mypetstore.css" type="text/css" media="screen">
+</head>
+<body>
+<header th:replace="common/top"></header>
+<div id="Content">
+    <div id="Catalog">
+        <form action="/account/edit" method="post" th:object="${userinfo}">
+            <h3>User Information</h3>
+            <div th:if="${loginMsg != null}">
+                <p class="error-msg" th:text="${loginMsg}"></p>
+            </div>
+            <span>User ID:
+                <input type="text" th:field="*{username}">
+            </span><br>
+            <span>New password:
+                <input type="password" th:field="*{password}">
+            </span><br>
+
+            <div id="middle">
+                <h3>Account Information</h3>
+                <span>First name:
+                    <input type="text" th:field="*{firstName}"/>
+                </span><br>
+                <span>Last name:
+                    <input type="text" th:field="*{lastName}"/>
+                </span><br>
+                <span>Email:
+                    <input type="text" size="40" th:field="*{email}"/>
+                </span><br>
+                <span>Phone:
+                    <input type="text" th:field="*{phone}"/>
+                </span><br>
+                <span>Address 1:
+                    <input type="text" th:field="*{address1}"/>
+                </span><br>
+                <span>Address 2:
+                    <input type="text" th:field="*{address2}"/>
+                </span><br>
+                <span>City:
+                    <input type="text" th:field="*{city}"/>
+                </span><br>
+                <span>State:
+                    <input type="text" th:field="*{state}"/>
+                </span><br>
+                <span>Zip:
+                    <input type="text" th:field="*{zip}"/>
+                </span><br>
+                <span>Country:
+                    <input type="text" th:field="*{country}"/>
+                </span><br>
+
+                <h3>Profile Information</h3>
+                <span>Language Preference:
+                    <select th:field="*{langPref}">
+                        <option value="english">English</option>
+                        <option value="spanish">Spanish</option>
+                        <option value="french">French</option>
+                        <option value="chinese">Chinese</option>
+                        <option value="japanese">Japanese</option>
+                        <option value="korean">Korean</option>
+                    </select>
+                </span><br>
+
+                <span>Favourite Category:
+                    <select th:field="*{favoriteGory}">
+                        <option value="BIRDS">birds</option>
+                        <option value="DOGS">dogs</option>
+                        <option value="CATS">cats</option>
+                        <option value="FISH">fish</option>
+                        <option value="REPTILES">reptiles</option>
+                    </select>
+                </span><br>
+
+                <span>Enable MyList:
+                    <input type="checkbox" th:field="*{myListOpt}" th:value="1"/>
+                </span><br>
+
+                <span>Enable MyBanner:
+                    <input type="checkbox" th:field="*{bannerOpt}" th:value="1"/>
+                </span><br>
+
+                <span>
+                    Verification Code:
+                    <input type="text" name="code" size="5" maxlength="4" required/>
+                    <a href="javascript:void(0);" onclick="reloadCaptcha()">
+                         <img border="0" src="/account/verificationCode" name="checkcode" id="captchaImg">
+                    </a>
+                </span><br>
+            </div>
+            <input type="submit" value="save">
+        </form>
+    </div>
+</div>
+<footer th:replace="common/bottom"></footer>
+<script>
+    function reloadCaptcha() {
+        document.getElementById("captchaImg").src = "/account/verificationCode?" + new Date().getTime();
+    }
+</script>
+</body>
+</html>
