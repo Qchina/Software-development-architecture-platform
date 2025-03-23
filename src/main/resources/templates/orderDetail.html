@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"><!DOCTYPE html>
+    <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Order Detail</title>
+        <link rel="stylesheet" href="/css/main.css">
+        <link rel="stylesheet" href="/css/orderManage.css">
+        <style>
+            /* 新增或修改的CSS规则 */
+            .order-edit-input {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr); /* 两列网格布局 */
+                gap: 20px 40px; /* 行间隙20px，列间隙40px */
+                padding: 30px;
+                max-width: 900px;
+                margin: 0 auto;
+            }
+
+            .order-edit {
+                display: flex;
+                align-items: center;
+                gap: 15px;
+            }
+
+            .edit-item-label {
+                width: 150px;
+                text-align: right;
+                font-size: 16px;
+                color: #666;
+            }
+
+            .edit-item-input {
+                flex: 1;
+                height: 36px;
+                padding: 6px 12px;
+                font-size: 14px;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+                max-width: 300px;
+            }
+
+            .edit-item-input:read-only {
+                background-color: #f5f5f5;
+                cursor: not-allowed;
+            }
+
+            .order-edit-buttons {
+                grid-column: 1 / -1; /* 跨满整行 */
+                text-align: center;
+                margin-top: 30px;
+                padding-top: 20px;
+                border-top: 1px solid #eee;
+            }
+
+            .btn.screen-btn {
+                padding: 10px 30px;
+                margin: 0 15px;
+                font-size: 14px;
+                border-radius: 4px;
+                transition: all 0.3s;
+            }
+
+            .btn.screen-btn.gray {
+                background: #6c757d;
+                color: white;
+            }
+
+            .btn.screen-btn.gray:hover {
+                background: #5a6268;
+            }
+
+            /* 保持原有其他样式 */
+            .nav-left .nav-left-item.orderManage {
+                background: #999;
+                color: #fcf9f9;
+            }
+            .order-table {
+                background: linear-gradient(rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.9)),
+                url('/images/splash.gif') center/contain no-repeat;
+            }
+
+
+            .w .order-screen .select-item {
+                padding-left: 100px;
+            }
+        </style>
+    </head>
+
+    <th:block th:include="~{IncludePage}"></th:block>
+
+    <div class="order-screen">
+        <!-- 订单状态下拉菜单 -->
+        <div class="order-edit">
+            <label class="edit-item-label">Status:</label>
+            <select class="edit-item-input" name="status" th:value="${order.orderStatuses.status}">
+                <option value="1" th:selected="${order.orderStatuses.status == '1'}">pending</option>
+                <option value="2" th:selected="${order.orderStatuses.status == '2'}">paid</option>
+                <option value="3" th:selected="${order.orderStatuses.status == '3'}">shipped</option>
+                <option value="4" th:selected="${order.orderStatuses.status == '4'}">completed</option>
+            </select>
+        </div>
+        <div class="screen-btns">
+            <button class="btn screen-btn gray" id="btn-select">Confirm To Edit</button>
+            <button class="btn screen-btn gray" id="btn-reset"
+                    onclick="window.location.href='/petManage/orderManage'">Close</button>
+        </div>
+
+<!--        <div class="order-search" style="margin: auto 150px">-->
+<!--            <input type="text" class="search-input" id="search-input" placeholder="Please inter order id">-->
+<!--            <button class="btn search-btn" id="search-btn">Search</button>-->
+<!--        </div>-->
+    </div>
+
+
+    <!-- 订单表格 -->
+    <div class="order-table">
+
+        <!-- 编辑订单表单 -->
+        <form th:action="updateOrder" method="post" class="order-edit" th:object="${order}">
+            <div class="order-edit-input">
+                <!-- Order ID -->
+                <div class="order-edit">
+                    <label class="edit-item-label">Order ID:</label>
+                    <input type="text" class="edit-item-input"
+                           th:field="*{orderId}" name="orderId" readonly>
+                </div>
+
+                <!-- User ID -->
+                <div class="order-edit">
+                    <label class="edit-item-label">User ID:</label>
+                    <input type="text" class="edit-item-input"
+                           th:field="*{userId}" name="userId" readonly>
+                </div>
+
+                <!-- Order Date -->
+                <div class="order-edit">
+                    <label class="edit-item-label">Order Date:</label>
+                    <input type="text" class="edit-item-input"
+                           th:field="*{orderDate}" name="orderDate" readonly>
+                </div>
+
+                <!-- Total Price -->
+                <div class="order-edit">
+                    <label class="edit-item-label">Total Price:</label>
+                    <input type="text" class="edit-item-input"
+                           th:field="*{totalPrice}" name="totalPrice" readonly>
+                </div>
+
+                <!-- Shipping Address -->
+                <div class="order-edit">
+                    <label class="edit-item-label">Ship Address 1:</label>
+                    <input type="text" class="edit-item-input"
+                           th:field="*{shipAddr1}" name="shipAddress1">
+                </div>
+
+                <div class="order-edit">
+                    <label class="edit-item-label">Ship Address 2:</label>
+                    <input type="text" class="edit-item-input"
+                           th:field="*{shipAddr2}" name="shipAddress2">
+                </div>
+
+                <div class="order-edit">
+                    <label class="edit-item-label">City:</label>
+                    <input type="text" class="edit-item-input"
+                           th:field="*{shipCity}" name="shipCity">
+                </div>
+
+                <div class="order-edit">
+                    <label class="edit-item-label">State:</label>
+                    <input type="text" class="edit-item-input"
+                           th:field="*{shipState}" name="shipState">
+                </div>
+
+                <div class="order-edit">
+                    <label class="edit-item-label">Zip:</label>
+                    <input type="text" class="edit-item-input"
+                           th:field="*{shipZip}" name="shipZip">
+                </div>
+
+                <div class="order-edit">
+                    <label class="edit-item-label">Country:</label>
+                    <input type="text" class="edit-item-input"
+                           th:field="*{shipCountry}" name="shipCountry">
+                </div>
+
+                <!-- Billing Address -->
+                <div class="order-edit">
+                    <label class="edit-item-label">Bill Address 1:</label>
+                    <input type="text" class="edit-item-input"
+                           th:field="*{billAddr1}" name="billAddress1">
+                </div>
+
+                <div class="order-edit">
+                    <label class="edit-item-label">Bill Address 2:</label>
+                    <input type="text" class="edit-item-input"
+                           th:field="*{billAddr2}" name="billAddress2">
+                </div>
+
+                <!-- Payment Info -->
+                <div class="order-edit">
+                    <label class="edit-item-label">Credit Card:</label>
+                    <input type="text" class="edit-item-input"
+                           th:field="*{creditCard}" name="creditCard">
+                </div>
+
+                <div class="order-edit">
+                    <label class="edit-item-label">Expiry Date:</label>
+                    <input type="text" class="edit-item-input"
+                           th:field="*{exprDate}" name="expiryDate">
+                </div>
+            <br>
+        </form>
+        </table>
+
+    </div>
+
+    </div>
+    </body>
+
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="/js/orderManage.js"></script>
+    <script src="/js/includePage.js"></script>
+
+    </html>
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>

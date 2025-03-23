@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.mypetstore.persistence.OrderManageMapper">
+
+    <!-- 定义 orders 表的 resultMap -->
+    <resultMap id="orderMap" type="com.example.mypetstore.domain.OrderManage">
+        <id property="orderId" column="orderid"/>
+        <result property="userId" column="userid"/>
+        <result property="orderDate" column="orderdate"/>
+        <result property="shipAddr1" column="shipaddr1"/>
+        <result property="shipAddr2" column="shipaddr2"/>
+        <result property="shipCity" column="shipcity"/>
+        <result property="shipState" column="shipstate"/>
+        <result property="shipZip" column="shipzip"/>
+        <result property="shipCountry" column="shipcountry"/>
+        <result property="billAddr1" column="billaddr1"/>
+        <result property="billAddr2" column="billaddr2"/>
+        <result property="billCity" column="billcity"/>
+        <result property="billState" column="billstate"/>
+        <result property="billZip" column="billzip"/>
+        <result property="billCountry" column="billcountry"/>
+        <result property="courier" column="courier"/>
+        <result property="totalPrice" column="totalprice"/>
+        <result property="billToFirstName" column="billtofirstname"/>
+        <result property="billToLastName" column="billtolastname"/>
+        <result property="shipToFirstName" column="shiptofirstname"/>
+        <result property="shipToLastName" column="shiptolastname"/>
+        <result property="creditCard" column="creditcard"/>
+        <result property="exprDate" column="exprdate"/>
+        <result property="cardType" column="cardtype"/>
+        <result property="locale" column="locale"/>
+    </resultMap>
+
+    <!-- 查询所有订单 -->
+    <select id="getOrderManageList" resultMap="orderMap">
+        SELECT * FROM mypetstore.orders
+    </select>
+
+    <!-- 根据订单ID查询订单 -->
+    <select id="getOrderManageById" resultMap="orderMap" parameterType="java.lang.Integer">
+        SELECT * FROM mypetstore.orders WHERE orderid = #{orderId}
+    </select>
+
+    <!-- 添加订单 -->
+    <insert id="addOrderManage" parameterType="com.example.mypetstore.domain.OrderManage">
+        INSERT INTO mypetstore.orders (
+            orderid, userid, orderdate, shipaddr1, shipaddr2, shipcity, shipstate, shipzip, shipcountry,
+            billaddr1, billaddr2, billcity, billstate, billzip, billcountry, courier, totalprice,
+            billtofirstname, billtolastname, shiptofirstname, shiptolastname, creditcard, exprdate, cardtype, locale
+        )
+        VALUES (
+                   #{orderId}, #{userId}, #{orderDate}, #{shipAddr1}, #{shipAddr2}, #{shipCity}, #{shipState}, #{shipZip}, #{shipCountry},
+                   #{billAddr1}, #{billAddr2}, #{billCity}, #{billState}, #{billZip}, #{billCountry}, #{courier}, #{totalPrice},
+                   #{billToFirstName}, #{billToLastName}, #{shipToFirstName}, #{shipToLastName}, #{creditCard}, #{exprDate}, #{cardType}, #{locale}
+               )
+    </insert>
+
+    <!-- 更新订单 -->
+    <update id="updateOrderManage" parameterType="com.example.mypetstore.domain.OrderManage">
+        UPDATE mypetstore.orders
+        SET
+            userid = #{userId},
+            orderdate = #{orderDate},
+            shipaddr1 = #{shipAddr1},
+            shipaddr2 = #{shipAddr2},
+            shipcity = #{shipCity},
+            shipstate = #{shipState},
+            shipzip = #{shipZip},
+            shipcountry = #{shipCountry},
+            billaddr1 = #{billAddr1},
+            billaddr2 = #{billAddr2},
+            billcity = #{billCity},
+            billstate = #{billState},
+            billzip = #{billZip},
+            billcountry = #{billCountry},
+            courier = #{courier},
+            totalprice = #{totalPrice},
+            billtofirstname = #{billToFirstName},
+            billtolastname = #{billToLastName},
+            shiptofirstname = #{shipToFirstName},
+            shiptolastname = #{shipToLastName},
+            creditcard = #{creditCard},
+            exprdate = #{exprDate},
+            cardtype = #{cardType},
+            locale = #{locale}
+        WHERE orderid = #{orderId}
+    </update>
+
+    <!-- 删除订单 -->
+    <delete id="deleteOrderManage" parameterType="java.lang.Integer">
+        DELETE FROM mypetstore.orders WHERE orderid = #{orderId}
+    </delete>
+
+    <!-- 根据用户ID查询订单 -->
+    <select id="searchOrderManageByUserId" resultMap="orderMap" parameterType="java.lang.Integer">
+        SELECT * FROM mypetstore.orders WHERE userid = #{userId}
+    </select>
+</mapper>

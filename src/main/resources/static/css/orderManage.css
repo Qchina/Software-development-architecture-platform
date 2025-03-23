@@ -1,0 +1,281 @@
+/* 通用样式 */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 0;
+}
+
+.w {
+    width: 1280px;
+    height: fit-content;
+    margin: 0 auto 0 300px;
+    position: relative;
+    overflow: hidden;
+    background: #f6f6f6;
+}
+
+/* 筛选及按钮操作盒子 */
+.order-screen {
+    position: relative;
+    margin: 20px auto;
+    width: 1100px;
+    height: 150px;
+    background: #fff;
+    box-shadow: -2px 2px 3px #ccc;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    user-select: none;
+}
+
+.order-screen .select-item {
+    display: inline-block;
+    padding-left: 20px;
+}
+
+.order-screen .select-item .select-label {
+    height: 30px;
+    line-height: 30px;
+    font-size: 13px;
+    padding-right: 5px;
+}
+
+.order-screen .select-item .select-comboBox {
+    width: 120px;
+    height: 30px;
+    border-color: #b0b0b0;
+    color: #8a8a8a;
+    border-radius: 5px;
+    padding-left: 6px;
+}
+
+/* 按钮 */
+
+/* 操作按钮容器 */
+.btn-container {
+    display: flex;
+    gap: 8px;
+    padding: 8px;
+    border: 1.5px solid #c3c3c3; /* 与表格边框颜色一致 */
+    border-radius: 5px; /* 圆角 */
+    background: #f8f9fa; /* 浅灰色背景 */
+    justify-content: center; /* 水平居中 */
+    align-items: center; /* 垂直居中 */
+}
+
+/* 通用按钮样式 */
+.action-btn {
+    display: inline-block; /* 使 <a> 标签像按钮一样显示 */
+    width: 60px; /* 统一按钮宽度 */
+    height: 30px; /* 统一按钮高度 */
+    border: none;
+    border-radius: 5px; /* 圆角 */
+    font-size: 13px; /* 与筛选框字体大小一致 */
+    cursor: pointer;
+    text-align: center; /* 文字居中 */
+    line-height: 30px; /* 垂直居中 */
+    text-decoration: none; /* 去掉下划线 */
+    transition: background-color 0.3s ease, color 0.3s ease; /* 平滑过渡 */
+}
+
+/* 编辑按钮 */
+.action-btn.edit-btn {
+    background: rgb(190, 158, 111); /* 与现有按钮颜色一致 */
+    color: #fff;
+}
+
+.action-btn.edit-btn:hover {
+    background: rgb(170, 138, 91); /* 悬停时颜色加深 */
+}
+
+/* 删除按钮 */
+.action-btn.delete-btn {
+    background: #ef9a9a; /* 红色背景 */
+    color: #fff;
+}
+
+.action-btn.delete-btn:hover {
+    background: #e57373; /* 悬停时颜色加深 */
+}
+
+/* 去发货按钮 */
+.action-btn.dispatch-btn {
+    background: #80e27e; /* 绿色背景 */
+    color: #fff;
+}
+
+.action-btn.dispatch-btn:hover {
+    background: #66bb6a; /* 悬停时颜色加深 */
+}
+
+/* 详情按钮 */
+.action-btn.detail-btn {
+    background: #c9c9c9; /* 灰色背景 */
+    color: #7b7575; /* 灰色文字 */
+}
+
+.action-btn.detail-btn:hover {
+    background: #b0b0b0; /* 悬停时颜色加深 */
+}
+.order-screen .screen-btns {
+    float: left;
+    position: relative;
+    padding-left: 45px;
+}
+
+.order-screen .screen-btns .btn.screen-btn {
+    border-radius: 7px;
+    margin-right: 10px;
+    padding: 0 10px;
+    height: 35px;
+    line-height: 35px;
+    font-size: 15px;
+}
+
+.order-screen .screen-btns .btn.screen-btn.gray {
+    background: #c9c9c9;
+    color: #7b7575;
+}
+
+.order-edit-buttons.gray:hover {
+    background: rgb(190, 158, 111);
+    color: #fff;
+}
+
+
+
+#edit-form{
+    padding-left:70px;
+}
+#edit-form div{
+    margin: 10px 0px;
+    display: inline;
+    width:46%;
+}
+
+#edit-form .order-edit{
+    display:inline-block;
+    margin: 5px ;
+    font-size: 20px;
+}
+
+#edit-form .order-edit-buttons .btn {
+    margin:10px 0px 0px 270px;
+
+}
+#edit-form .order-edit-buttons .btn:hover {
+    background-color:rgb(190, 158, 111);
+    color:white
+}
+
+/* 搜索 */
+.order-screen .order-search {
+    display: inline-block;
+}
+
+.order-screen .order-search .search-input {
+    width: 200px;
+    height: 30px;
+    margin-left: 30px;
+    line-height: 35px;
+    font-size: 15px;
+    border: 2px solid rgb(190, 158, 111);
+    outline: none;
+    padding-left: 10px;
+}
+
+.order-screen .order-search .btn.search-btn {
+    position: absolute;
+    width: 80px;
+    height: 34px;
+    line-height: 35px;
+    padding: 0 10px;
+}
+
+.order-screen .order-search .btn.search-btn:active {
+    background: #c9c9c9;
+    color: #7b7575;
+}
+
+/* 添加订单 */
+
+
+/* 订单表格 */
+.order-table {
+    position: relative;
+    width: 1120px;
+    height: 550px;
+    background: #fff;
+    box-shadow: -2px 2px 3px #ccc;
+    border-radius: 10px;
+    margin: 0 auto 50px;
+}
+
+.w .order-table #order-table {
+    position: absolute;
+    width: 1090px;
+    margin-left: 15px;
+    margin-top: 20px;
+    text-align: center;
+    border: 1px solid #afafaf;
+    border-collapse: collapse;
+}
+
+.order-table th {
+    border: 1.5px solid #c3c3c3;
+    background: rgb(226, 226, 226);
+    height: 30px;
+}
+
+.order-table td {
+    border: 1.5px solid #c3c3c3;
+    height: 40px;
+}
+
+.order-table .action-btn {
+    width: 50px;
+    height: 30px;
+    background: rgb(190, 158, 111);
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+}
+
+.order-table .action-btn.gray {
+    background: #c9c9c9;
+    color: #7b7575;
+}
+
+.order-table .action-btn:hover {
+    cursor: pointer;
+}
+
+.order-table .action-btn.green {
+    background-color: #80e27e;
+    color: white;
+}
+
+.order-table .action-btn.red {
+    background-color: #ef9a9a;
+    color: white;
+}
+
+.order-table .nav-bottom {
+    top: 450px;
+    position: relative;
+    padding-right: 30px;
+    display: inline;
+    float: right;
+    font-size: 13px;
+    user-select: none;
+}
+
+.order-table .nav-bottom .link {
+    display: inline-block;
+}
+
+.order-table .nav-bottom .current-page {
+    color: rgb(190, 158, 111);
+}

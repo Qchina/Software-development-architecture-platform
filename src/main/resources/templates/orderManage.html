@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Manage</title>
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/orderManage.css">
+    <style>
+        /* 左侧标签栏选中 */
+        .nav-left .nav-left-item.orderManage {
+            background: #999;
+            color: #fcf9f9;
+        }
+
+        .w .order-screen .select-item {
+            padding-left: 100px;
+        }
+
+        .w .order-add .order-add-input, .w .order-edit .order-edit-input {
+            width: 600px;
+            display: flex;
+            flex-wrap: wrap;
+            margin-left: 65px;
+        }
+
+        .w .order-add .order-add-item, .w .order-edit .order-edit-item {
+            display: flex;
+            flex-wrap: nowrap;
+            justify-content: right;
+            align-items: center;
+            margin-right: 0;
+        }
+
+        .w .order-add .order-add-buttons, .w .order-edit .order-edit-buttons {
+            bottom: 90px;
+            margin-right: 90px;
+        }
+    </style>
+</head>
+
+<th:block th:include="~{IncludePage}"></th:block>
+
+<div class="order-screen">
+    <div class="select-item">
+        <label class="select-label">订单状态：</label>
+        <select name="" class="select-comboBox status" id="status-comboBox">
+            <option value="null" selected>————</option>
+            <option value="pending">pending</option>
+            <option value="paid">paid</option>
+            <option value="shipped">shipped</option>
+            <option value="completed">completed</option>
+        </select>
+    </div>
+
+
+<!--    <div class="screen-btns">-->
+<!--        <button class="btn screen-btn gray" id="btn-select">Sift</button>-->
+<!--        <button class="btn screen-btn gray" id="btn-reset">Reset</button>-->
+<!--    </div>-->
+
+    <div class="order-search" style="margin: auto 100px">
+        <form action="/petManage/getOrderById" method="get">
+            <input type="text" class="search-input" name="orderId" placeholder="Please enter order id">
+            <button type="submit" class="btn search-btn">Search</button>
+        </form>
+    </div>
+<!--    <div class="order-search" style="margin: auto 100px">-->
+<!--        <form action="/petManage/getOrderById" method="get">-->
+<!--            <input type="text" class="search-input" name="orderId" placeholder="Please enter order id">-->
+<!--            <button type="submit" class="btn search-btn">Search</button>-->
+<!--        </form>-->
+<!--    </div>-->
+
+</div>
+
+<div class="search-auto-complete" id="auto-complete">
+    <ul class="auto-complete-list" id="auto-complete-list"></ul>
+</div>
+
+<!-- 订单表格 -->
+<div class="order-table">
+    <table class="table" id="order-table">
+        <thead>
+        <tr class="table-title">
+            <th class="col1">Order ID</th>
+            <th class="col2">User ID</th>
+            <th class="col3">Order Time</th>
+            <th class="col4" style="width: 135px">Total Price</th>
+            <th class="col5" style="width: 80px">Status</th>
+            <th class="col6" style="width: 250px">Operation</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="order : ${orders}" th:id="'order-row-' + ${order.orderId}">
+            <td th:text="${order.orderId}" class="tableOrderId"></td>
+            <td th:text="${order.userId}" class="tableUserId"></td>
+            <td th:text="${order.orderDate}" class="tableOrderDate"></td>
+            <td th:text="${order.totalPrice}" class="tableTotalAmount"></td>
+            <td class="tableStatus">
+                <!-- 嵌套遍历当前 order 对应的 orderStatuses -->
+                <span th:each="orderStatus : ${orderStatuses}"
+                      th:if="${orderStatus.orderId == order.orderId}">
+                    <span th:switch="${orderStatus.status}">
+                    <span th:case="1">pending</span>
+                    <span th:case="2">paid</span>
+                    <span th:case="3">shipped</span>
+                    <span th:case="4">completed</span> <!-- 默认情况 -->
+        </span>
+    </span>
+            <td class="btns-action">
+                <div class="btn-container">
+                    <a th:href="@{/petManage/getOrderById(orderId=${order.orderId})}" class="action-btn edit-btn">Edit</a>
+                    <form action="deleteOrderManager" method="post" onsubmit="return confirm('Are you sure you want to delete this order?');">
+                        <input type="hidden" name="orderId" th:value="${order.orderId}" />
+                        <button type="submit" class="action-btn delete-btn">Delete</button>
+                    </form>
+                    <a th:href="@{/petManage/updateOrderStatus(orderId=${order.orderId})}" class="action-btn edit-btn">Dispatch</a>
+
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!-- 分页导航 -->
+    <div class="nav-bottom">
+        <p class="total"></p>
+        <div class="link">上一页</div>
+        <p class="current-page">page 1</p>
+        <div class="link">下一页</div>
+    </div>
+</div>
+
+
+</div>
+</body>
+
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="/js/orderManage.js"></script>
+<script src="/js/includePage.js"></script>
+
+</html>

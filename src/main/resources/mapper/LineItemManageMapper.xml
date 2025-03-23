@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.mypetstore.persistence.LineItemManageMapper">
+
+    <!-- 定义 lineitem 表的 resultMap -->
+    <resultMap id="lineItemMap" type="com.example.mypetstore.domain.LineItem">
+        <id property="orderId" column="orderid"/>
+        <id property="lineNum" column="linenum"/>
+        <result property="itemId" column="itemid"/>
+        <result property="quantity" column="quantity"/>
+        <result property="unitPrice" column="unitprice"/>
+    </resultMap>
+
+    <!-- 查询所有 lineitem -->
+    <select id="getLineItemList" resultMap="lineItemMap">
+        SELECT * FROM mypetstore.lineitem
+    </select>
+
+    <!-- 根据订单ID查询 lineitem -->
+    <select id="getLineItemByOrderId" resultMap="lineItemMap" parameterType="java.lang.Integer">
+        SELECT * FROM mypetstore.lineitem WHERE orderid = #{orderId}
+    </select>
+
+    <!-- 添加 lineitem -->
+    <insert id="addLineItem" parameterType="com.example.mypetstore.domain.LineItem">
+        INSERT INTO mypetstore.lineitem (orderid, linenum, itemid, quantity, unitprice)
+        VALUES (#{orderId}, #{lineNum}, #{itemId}, #{quantity}, #{unitPrice})
+    </insert>
+
+    <!-- 更新 lineitem -->
+    <update id="updateLineItem" parameterType="com.example.mypetstore.domain.LineItem">
+        UPDATE mypetstore.lineitem
+        SET
+            itemid = #{itemId},
+            quantity = #{quantity},
+            unitprice = #{unitPrice}
+        WHERE orderid = #{orderId} AND linenum = #{lineNum}
+    </update>
+
+    <!-- 删除 lineitem -->
+    <delete id="deleteLineItem" parameterType="java.lang.Integer">
+        DELETE FROM mypetstore.lineitem WHERE orderid = #{orderId} AND linenum = #{lineNum}
+    </delete>
+</mapper>
